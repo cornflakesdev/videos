@@ -233,9 +233,9 @@ class HoldUpMathExchange(TeacherStudentsScene):
 
         self.add(title)
         self.play(self.teacher.change, "raise_right_hand", ORIGIN),
-        self.change_all_student_modes("thinking", look_at_arg=ORIGIN)
+        self.play_all_student_changes("thinking", look_at=ORIGIN)
         self.wait(3)
-        self.change_all_student_modes("confused", look_at_arg=ORIGIN)
+        self.play_all_student_changes("confused", look_at=ORIGIN)
         self.wait(3)
 
 
@@ -935,8 +935,8 @@ class AskWhat(TeacherStudentsScene):
         self.student_says(
             "I'm sorry,\\\\what?!?",
             target_mode="angry",
-            look_at_arg=screen,
-            student_index=2,
+            look_at=screen,
+            index=2,
             added_anims=[
                 self.teacher.change, "happy", screen,
                 self.students[0].change, "confused", screen,
@@ -1068,9 +1068,9 @@ class AskAboutRelationToPrimes(TeacherStudentsScene):
         group.next_to(self.pi_creatures, UP, LARGE_BUFF)
 
         self.play(
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["maybe"],
-                look_at_arg=numbers,
+                look_at=numbers,
             ),
             self.teacher.change, "maybe", numbers,
             ShowCreation(arrow),
@@ -1186,7 +1186,7 @@ class QuestionIsMisleading(TeacherStudentsScene):
         self.student_says(
             "Whoa, is this some\\\\divine hidden structure\\\\in the primes?",
             target_mode="surprised",
-            student_index=0,
+            index=0,
             added_anims=[
                 self.students[1].change, "pondering",
                 self.students[2].change, "pondering",
@@ -1197,7 +1197,7 @@ class QuestionIsMisleading(TeacherStudentsScene):
         self.students[0].bubble = None
         self.teacher_says(
             "Er...not exactly",
-            bubble_kwargs={"width": 3, "height": 2},
+            bubble_config={"width": 3, "height": 2},
             target_mode="guilty"
         )
         self.wait(3)
@@ -2544,7 +2544,7 @@ class IntroduceTotientJargon(TeacherStudentsScene):
             "More jargon!",
             target_mode="hooray",
         )
-        self.change_all_student_modes("erm")
+        self.play_all_student_changes("erm")
         words = self.teacher.bubble.content
 
         words.generate_target()
@@ -3525,8 +3525,8 @@ class Show280Computation(Scene):
 
 class TeacherHoldUp(TeacherStudentsScene):
     def construct(self):
-        self.change_all_student_modes(
-            "pondering", look_at_arg=2 * UP,
+        self.play_all_student_changes(
+            "pondering", look_at=2 * UP,
             added_anims=[
                 self.teacher.change, "raise_right_hand"
             ]
@@ -3871,7 +3871,7 @@ class PhraseDirichletsTheoremFor10(TeacherStudentsScene):
         self.play(
             FadeInFromDown(denom),
             teacher.change, "raise_right_hand",
-            self.get_student_changes(*["pondering"] * 3),
+            self.change_students(*["pondering"] * 3),
         )
         self.wait()
         self.play(FadeInFromDown(x_example))
@@ -3904,7 +3904,7 @@ class PhraseDirichletsTheoremFor10(TeacherStudentsScene):
                 rate_func=linear,
             ),
             VFadeOut(x_example, run_time=8),
-            self.get_student_changes(*["thinking"] * 3),
+            self.change_students(*["thinking"] * 3),
             Blink(
                 teacher,
                 run_time=4,
@@ -4262,7 +4262,7 @@ class TalkAboutProof(TeacherStudentsScene):
         # Ask question
         self.student_says(
             "So how'd he\\\\prove it?",
-            student_index=0,
+            index=0,
         )
         bubble = students[0].bubble
         students[0].bubble = None
@@ -4276,9 +4276,9 @@ class TalkAboutProof(TeacherStudentsScene):
             "...er...it's a\\\\bit complicated",
             target_mode="guilty",
         )
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "tired",
-            look_at_arg=teacher.bubble,
+            look_at=teacher.bubble,
             lag_ratio=0.1,
         )
         self.play(
@@ -4296,7 +4296,7 @@ class TalkAboutProof(TeacherStudentsScene):
             FadeInFromDown(ca),
             FadeOut(teacher.bubble),
             FadeOut(teacher.bubble.content),
-            self.get_student_changes(*["pondering"] * 3),
+            self.change_students(*["pondering"] * 3),
         )
         self.wait()
         self.play(
@@ -4309,8 +4309,8 @@ class TalkAboutProof(TeacherStudentsScene):
         self.wait(2)
         self.play(ca[0].set_color, YELLOW)
         self.wait(2)
-        self.change_all_student_modes(
-            "confused", look_at_arg=ca,
+        self.play_all_student_changes(
+            "confused", look_at=ca,
         )
         self.wait(4)
 
@@ -4710,7 +4710,7 @@ class BePlayful(TeacherStudentsScene):
             "So be playful!",
             target_mode="hooray",
         )
-        self.change_student_modes("thinking", "hooray", "happy")
+        self.play_student_changes("thinking", "hooray", "happy")
         self.wait(3)
 
 

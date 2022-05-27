@@ -80,13 +80,13 @@ class ThisVideo(TeacherStudentsScene):
         self.play(FadeIn(series, lag_ratio = 0.5))
         self.teacher_says(
             "A new view of \\\\ the fundamental theorem",
-            bubble_kwargs = {"height" : 3},
+            bubble_config = {"height" : 3},
             added_anims = [
                 this_video.shift, this_video.get_height()*DOWN/2,
                 this_video.set_color, YELLOW,
             ]
         )
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(3)
 
 class AverageOfSineStart(AverageOfContinuousVariable):
@@ -351,7 +351,7 @@ class AskAboutAverageOfContinuousVariables(TeacherStudentsScene):
             "The average \\dots of a \\\\ continuous thing?",
             target_mode = "sassy",
         )
-        self.change_student_modes("confused", "sassy", "confused")
+        self.play_student_changes("confused", "sassy", "confused")
         self.play(self.teacher.change_mode, "happy")
         self.wait(2)
 
@@ -540,7 +540,7 @@ class TryToAddInfinitelyManyPoints(AverageOfSineStart):
         self.play(FadeIn(randy))
         self.play(PiCreatureBubbleIntroduction(
             randy, "Use an integral!",
-            bubble_class = ThoughtBubble,
+            bubble_type = ThoughtBubble,
             target_mode = "hooray"
         ))
         self.play(Blink(randy))
@@ -1969,24 +1969,24 @@ class ASecondIntegralSensation(TeacherStudentsScene):
         self.teacher_says(
             "A second integral \\\\ sensation"
         )
-        self.change_student_modes(*["erm"]*3)
+        self.play_student_changes(*["erm"]*3)
         self.wait()
         self.play(
             Write(numbers),
             RemovePiCreatureBubble(self.teacher),
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = numbers
+            look_at = numbers
         )
         self.play(Write(plusses))
         self.wait()
         self.play(Write(denominator))
         self.wait()
 
-        self.change_student_modes(
+        self.play_student_changes(
             *["confused"]*3,
-            look_at_arg = continuum,
+            look_at = continuum,
             added_anims = [Write(continuum, run_time = 2)]
         )
         self.play(ShowCreation(arrow))
@@ -1998,9 +1998,9 @@ class ASecondIntegralSensation(TeacherStudentsScene):
         )
         self.play(*list(map(FadeOut, [arrow])))
         self.wait(2)
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = sigma_to_integral,
+            look_at = sigma_to_integral,
             added_anims = [
                 Write(sigma_to_integral),
                 self.teacher.change_mode, "raise_right_hand"

@@ -1038,17 +1038,17 @@ class SetTheStage(TeacherStudentsScene):
         self.add(self.screen)
         self.teacher_holds_up(
             ordinary,
-            added_anims=[self.get_student_changes(*3 * ["sassy"])]
+            added_anims=[self.change_students(*3 * ["sassy"])]
         )
         self.wait()
         self.play(
             ordinary.shift, UP,
             FadeInFromDown(transformational),
             self.teacher.change, "hooray",
-            self.get_student_changes(*3 * ["erm"])
+            self.change_students(*3 * ["erm"])
         )
         self.wait(3)
-        self.change_all_student_modes("pondering", look_at_arg=self.screen)
+        self.play_all_student_changes("pondering", look_at=self.screen)
 
 
 class StandardDerivativeVisual(GraphScene):
@@ -1247,7 +1247,7 @@ class StandardDerivativeVisual(GraphScene):
         self.play(FadeIn(morty))
         self.play(PiCreatureSays(
             morty, "Don't think of \\\\ this as the definition",
-            bubble_kwargs={"height": 2, "width": 4}
+            bubble_config={"height": 2, "width": 4}
         ))
         self.play(Blink(morty))
         self.wait()
@@ -1477,7 +1477,7 @@ class IntroduceTransformationView(NumberlineTransformationScene):
 
 class ExamplePlease(TeacherStudentsScene):
     def construct(self):
-        self.student_says("Example?", student_index=0)
+        self.student_says("Example?", index=0)
         self.teacher_holds_up(Tex("f(x) = x^2").scale(1.5))
         self.wait(2)
 
@@ -2009,7 +2009,7 @@ class FeelsALittleCramped(TeacherStudentsScene):
         self.teacher_says(
             "Sure, but think \\\\ locally"
         )
-        self.change_all_student_modes("pondering", look_at_arg=self.screen)
+        self.play_all_student_changes("pondering", look_at=self.screen)
         self.wait(3)
 
 
@@ -2019,7 +2019,7 @@ class HowDoesThisSolveProblems(TeacherStudentsScene):
             "Is this...useful?",
             target_mode="confused"
         )
-        self.change_student_modes("maybe", "confused", "sassy")
+        self.play_student_changes("maybe", "confused", "sassy")
         self.play(self.teacher.change, "happy")
         self.wait(3)
 
@@ -2074,8 +2074,8 @@ class IntroduceContinuedFractionPuzzle(PiCreatureScene):
             PiCreatureSays(
                 friend, "Would this be valid? \\\\ If not, why not?",
                 target_mode="confused",
-                look_at_arg=frac,
-                bubble_kwargs={
+                look_at=frac,
+                bubble_config={
                     "direction": RIGHT,
                     "width": 4,
                     "height": 3,
@@ -2088,7 +2088,7 @@ class IntroduceContinuedFractionPuzzle(PiCreatureScene):
         anims = [
             RemovePiCreatureBubble(
                 friend, target_mode="pondering",
-                look_at_arg=frac
+                look_at=frac
             ),
         ]
         if self.remove_initial_rhs:
@@ -2358,7 +2358,7 @@ class ThinkAboutWithRepeatedApplication(IntroduceContinuedFractionPuzzle):
         self.play(
             PiCreatureSays(
                 randy, "Obviously not!",
-                bubble_kwargs={"width": 3, "height": 2},
+                bubble_config={"width": 3, "height": 2},
                 target_mode="angry",
                 run_time=1,
             ),
@@ -2910,7 +2910,7 @@ class LetsSwitchToTheTransformationalView(TeacherStudentsScene):
             "Lose the \\\\ graphs!",
             target_mode="hooray"
         )
-        self.change_student_modes("hooray", "erm", "surprised")
+        self.play_student_changes("hooray", "erm", "surprised")
         self.wait(5)
 
 
@@ -3367,22 +3367,22 @@ class NotBetterThanGraphs(TeacherStudentsScene):
         )
         self.play(
             self.teacher.change, "guilty",
-            self.get_student_changes("sad", "sassy", "hesitant")
+            self.change_students("sad", "sassy", "hesitant")
         )
         self.wait(2)
         self.play(
             RemovePiCreatureBubble(self.students[1]),
             self.teacher.change, "raise_right_hand"
         )
-        self.change_all_student_modes(
-            "confused", look_at_arg=self.screen
+        self.play_all_student_changes(
+            "confused", look_at=self.screen
         )
         self.wait(3)
         self.teacher_says(
             "You must flex those \\\\ conceptual muscles",
-            added_anims=[self.get_student_changes(
+            added_anims=[self.change_students(
                 *3 * ["thinking"],
-                look_at_arg=self.teacher.eyes
+                look_at=self.teacher.eyes
             )]
         )
         self.wait(3)

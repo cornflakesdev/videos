@@ -302,9 +302,9 @@ class Introduction(TeacherStudentsScene):
             Blink(self.get_teacher())
         )
         self.teacher_says(words, target_mode = "hooray")
-        self.change_student_modes(
+        self.play_student_changes(
             *["hooray"]*3,
-            look_at_arg = series[1].get_left(),
+            look_at = series[1].get_left(),
             added_anims = [
                 ApplyMethod(this_video.restore, run_time = 3),
             ]
@@ -371,11 +371,11 @@ class Introduction(TeacherStudentsScene):
             rule.next_to(self.teacher.get_corner(UP+LEFT), UP)
             rule.shift_onto_screen()
 
-        student_index = 1
-        student = self.get_students()[student_index]
-        self.change_student_modes(
+        index = 1
+        student = self.get_students()[index]
+        self.play_student_changes(
             "pondering", "sassy", "pondering",
-            look_at_arg = self.teacher.eyes,
+            look_at = self.teacher.eyes,
             added_anims = [
                 self.teacher.change_mode, "plain"
             ]
@@ -987,7 +987,7 @@ class MoveForwardWithApproximation(TeacherStudentsScene):
             "Move forward with \\\\",
             "the", "approximation"
         )
-        self.change_student_modes("hesitant", "erm", "sassy")
+        self.play_student_changes("hesitant", "erm", "sassy")
         self.wait()
         words = TexText(
             "It gets better", 
@@ -1532,11 +1532,11 @@ class ThinkLikeAMathematician(TeacherStudentsScene):
             pi_R_squraed.shift, 2*UP,
             pi_R_squraed.set_fill, None, 1
         )
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(2)
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = self.teacher.eyes,
+            look_at = self.teacher.eyes,
             added_anims = [PiCreatureSays(
                 self.teacher, "But why did \\\\ that work?"
             )]
@@ -2222,9 +2222,9 @@ class WhoCaresAboutArea(TeacherStudentsScene):
             self.teacher.change_mode, "raise_right_hand",
             self.teacher.look_at, point
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3, 
-            look_at_arg = point,
+            look_at = point,
             added_anims = [self.teacher.look_at, point]
 
         )
@@ -2236,12 +2236,12 @@ class PlayWithThisIdea(TeacherStudentsScene):
             "Play with", "the", "thought!",
             target_mode = "hooray"
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait()
         equation = Tex("A(x)", "\\leftrightarrow", "x^2")
         equation.set_color_by_tex("x^2", BLUE)
         self.teacher_says(equation, target_mode = "sassy")
-        self.change_student_modes(*["thinking"]*3)
+        self.play_student_changes(*["thinking"]*3)
         self.wait(2)
 
 class PlayingTowardsDADX(AreaUnderParabola, ReconfigurableScene):
@@ -2707,7 +2707,7 @@ class NextVideos(TeacherStudentsScene):
             RemovePiCreatureBubble(
                 self.teacher,
                 target_mode = "raise_right_hand",
-                look_at_arg = this_video,
+                look_at = this_video,
             ),
             *it.chain(*[
                 [pi.change_mode, "pondering", pi.look_at, this_video]

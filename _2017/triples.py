@@ -101,9 +101,9 @@ class IntroduceTriples(TeacherStudentsScene):
                 self.teacher.change_mode, "raise_right_hand"
             )
             self.play(LaggedStartMap(FadeIn, a_square))
-            self.change_student_modes(
+            self.play_student_changes(
                 *["pondering"]*3,
-                look_at_arg = triangle,
+                look_at = triangle,
                 added_anims = [LaggedStartMap(FadeIn, b_square)]
             )
             self.play(self.teacher.change_mode, "happy")
@@ -147,7 +147,7 @@ class CompareToFermatsLastTheorem(TeacherStudentsScene):
         low_text.set_color(RED)
 
         self.add(square_expression, top_brace, top_text)
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.play(self.teacher.change, "happy", run_time = 0)
         self.play(
             ReplacementTransform(
@@ -166,9 +166,9 @@ class CompareToFermatsLastTheorem(TeacherStudentsScene):
             GrowFromCenter(low_brace),
             FadeIn(low_text),
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "sassy", "angry", "erm",
-            look_at_arg = low_expression,
+            look_at = low_expression,
             added_anims = [Transform(low_expression, expressions[3])]
         )
         for expression in expressions[4:]:
@@ -310,7 +310,7 @@ class AskAboutFavoriteProof(TeacherStudentsScene):
             "What's you're \\\\ favorite proof?",
             target_mode = "raise_right_hand"
         )
-        self.change_student_modes("happy", "raise_right_hand", "happy")
+        self.play_student_changes("happy", "raise_right_hand", "happy")
         self.teacher_thinks("", target_mode = "thinking")
         self.wait()
         self.zoom_in_on_thought_bubble()
@@ -745,7 +745,7 @@ class ReframeOnLattice(PiCreatureScene):
             PiCreatureSays(
                 morty, "Try squaring \\\\ it!",
                 target_mode = "hooray",
-                bubble_kwargs = {"width" : 4, "height" : 3},
+                bubble_config = {"width" : 4, "height" : 3},
             )
         )
         self.play(
@@ -755,7 +755,7 @@ class ReframeOnLattice(PiCreatureScene):
         self.wait()
         self.play(RemovePiCreatureBubble(
             morty, target_mode = "pondering",
-            look_at_arg = self.example_label
+            look_at = self.example_label
         ))
 
     def work_out_square_algebraically(self):
@@ -953,7 +953,7 @@ class ReframeOnLattice(PiCreatureScene):
 class TimeToGetComplex(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Time to \\\\ get complex")
-        self.change_student_modes("angry", "sassy", "pleading")
+        self.play_student_changes("angry", "sassy", "pleading")
         self.wait(2)
 
 class OneMoreExample(Scene):
@@ -1866,7 +1866,7 @@ class AskAboutHittingAllPoints(TeacherStudentsScene):
         )
         self.wait()
         self.teacher_says("No", target_mode = "sad")
-        self.change_student_modes(*["hesitant"]*3)
+        self.play_student_changes(*["hesitant"]*3)
         self.wait()
 
 class PointsWeMiss(VisualizeZSquared):
@@ -2023,7 +2023,7 @@ class PointsWeMissAreMultiplesOfOnesWeHit(TeacherStudentsScene):
         words.set_color_by_tex("miss", RED)
         words.set_color_by_tex("hit", GREEN)
         self.teacher_says(words)
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(2)
 
 class DrawSingleRadialLine(PointsWeMiss):
@@ -2569,7 +2569,7 @@ class SupposeMissingPoint(PointsWeMiss):
 class ProofTime(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Proof time!", target_mode = "hooray")
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(2)
 
 class FinalProof(RationalPointsOnUnitCircle):
@@ -2902,9 +2902,9 @@ class FinalProof(RationalPointsOnUnitCircle):
         )
         self.play(PiCreatureSays(
             morty, "Free to choose!",
-            bubble_kwargs = {"height" : 1.5, "width" : 3},
+            bubble_config = {"height" : 1.5, "width" : 3},
             target_mode = "hooray",
-            look_at_arg = rect
+            look_at = rect
         ))
         self.play(Blink(morty))
         self.wait(2)

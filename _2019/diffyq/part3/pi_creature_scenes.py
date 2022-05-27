@@ -8,35 +8,35 @@ class IveHeardOfThis(TeacherStudentsScene):
         point.move_to(3 * RIGHT + 2 * UP)
         self.student_says(
             "I've heard\\\\", "of this!",
-            student_index=1,
+            index=1,
             target_mode="hooray",
-            bubble_kwargs={
+            bubble_config={
                 "height": 3,
                 "width": 3,
                 "direction": RIGHT,
             },
             run_time=1,
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "hooray", "thinking",
-            look_at_arg=point,
+            look_at=point,
             added_anims=[self.teacher.change, "happy"]
         )
         self.wait(3)
         self.student_says(
             "But who\\\\", "cares?",
-            student_index=1,
+            index=1,
             target_mode="maybe",
-            bubble_kwargs={
+            bubble_config={
                 "direction": RIGHT,
                 "width": 3,
                 "height": 3,
             },
             run_time=1,
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "maybe", "pondering",
-            look_at_arg=point,
+            look_at=point,
             added_anims=[self.teacher.change, "guilty"]
         )
         self.wait(5)
@@ -99,15 +99,15 @@ class SineCurveIsUnrealistic(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "But that would\\\\never happen!",
-            student_index=1,
-            bubble_kwargs={
+            index=1,
+            bubble_config={
                 "direction": RIGHT,
                 "height": 3,
                 "width": 4,
             },
             target_mode="angry"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "guilty", "angry", "hesitant",
             added_anims=[
                 self.teacher.change, "tease"
@@ -118,9 +118,9 @@ class SineCurveIsUnrealistic(TeacherStudentsScene):
             RemovePiCreatureBubble(self.students[1]),
             self.teacher.change, "raise_right_hand"
         )
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "pondering",
-            look_at_arg=3 * UP,
+            look_at=3 * UP,
         )
         self.wait(5)
 
@@ -131,9 +131,9 @@ class IfOnly(TeacherStudentsScene):
             "If only!",
             target_mode="angry"
         )
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "confused",
-            look_at_arg=self.screen
+            look_at=self.screen
         )
         self.wait(3)
 
@@ -147,7 +147,7 @@ class SoWeGotNowhere(TeacherStudentsScene):
                 self.teacher.change, "guilty"
             ]
         )
-        self.change_all_student_modes("angry")
+        self.play_all_student_changes("angry")
         self.wait()
         text = Tex(
             "&\\text{Actually,}\\\\",
@@ -163,13 +163,13 @@ class SoWeGotNowhere(TeacherStudentsScene):
         self.teacher_says(
             text,
             content_introduction_class=FadeIn,
-            bubble_kwargs={
+            bubble_config={
                 "width": 4,
                 "height": 3.5,
             }
         )
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "pondering",
-            look_at_arg=self.screen
+            look_at=self.screen
         )
         self.wait(3)

@@ -1,5 +1,6 @@
 directories:
   mirror_module_path: True
+  removed_mirror_prefix: "/Users/grant/cs/videos/"
   output: "/Users/grant/Dropbox/3Blue1Brown/videos"
   raster_images: "/Users/grant/Dropbox/3Blue1Brown/images/raster"
   vector_images: "/Users/grant/Dropbox/3Blue1Brown/images/vector"
@@ -14,12 +15,10 @@ universal_import_line: "from manim_imports_ext import *"
 #   intermediate_filetype: "xdv"
 style:
   font: "CMU Serif"
+  text_alignment: "CENTER"
   background_color: "#000000"
-camera_qualities:
-  high:
-    resolution: "1920x1080"
-    frame_rate: 60
-  default_quality: "ultra_high"
+camera_resolutions:
+  default_resolution: "4k"
 window_position: UR
 window_monitor: 0
 full_screen: False

@@ -167,7 +167,7 @@ class LeaveItToComputers(TeacherStudentsScene):
         self.play(
             Write(system),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes("pondering", "thinking", "hooray")
+            self.change_students("pondering", "thinking", "hooray")
         )
         self.wait(2)
         self.play(
@@ -176,7 +176,7 @@ class LeaveItToComputers(TeacherStudentsScene):
                 target_mode="shruggie",
             ),
             MoveToTarget(system, path_arc=90 * DEGREES),
-            self.get_student_changes(*["confused"] * 3)
+            self.change_students(*["confused"] * 3)
         )
         self.wait(3)
 
@@ -214,20 +214,20 @@ class LeaveItToComputers(TeacherStudentsScene):
         )
         self.remove(denom_mover)
         self.add(cg)
-        self.change_all_student_modes("sassy")
+        self.play_all_student_changes("sassy")
         self.wait(2)
         self.play(
             cramer_groups[0].scale, 1 / scale_factor,
             cramer_groups[0].next_to, cramer_groups[1], LEFT, MED_LARGE_BUFF,
             FadeIn(cramer_groups[1]),
             FadeOut(system),
-            self.get_student_changes(*3 * ["horrified"], look_at_arg=UP),
+            self.change_students(*3 * ["horrified"], look_at=UP),
         )
         self.wait()
         self.play(
             FadeIn(cramer_groups[2]),
             cramer_groups[:2].next_to, cramer_groups[2], LEFT, MED_LARGE_BUFF,
-            self.get_student_changes(*3 * ["horrified"], look_at_arg=UP),
+            self.change_students(*3 * ["horrified"], look_at=UP),
         )
         self.wait()
 
@@ -237,9 +237,9 @@ class LeaveItToComputers(TeacherStudentsScene):
         self.play(
             GrowFromCenter(brace),
             Write(rule_text),
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "erm", "maybe",
-                look_at_arg=brace,
+                look_at=brace,
             )
         )
         self.wait(3)
@@ -336,15 +336,15 @@ class WhyLearnIt(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "What?!?  Then why \\\\ learn it?",
-            bubble_kwargs={"direction": LEFT},
-            student_index=2,
+            bubble_config={"direction": LEFT},
+            index=2,
             target_mode="angry",
         )
-        self.change_all_student_modes("angry")
+        self.play_all_student_changes("angry")
         self.wait()
         self.play(
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes("erm", "happy" "pondering"),
+            self.change_students("erm", "happy" "pondering"),
             RemovePiCreatureBubble(self.students[2], target_mode="pondering"),
         )
         self.look_at(self.screen)
@@ -905,7 +905,7 @@ class ThinkOfPuzzleAsLinearCombination(SetupSimpleSystemOfEquations):
 class WrongButHelpful(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("What's next is wrong, \\\\ but helpful")
-        self.change_student_modes("sassy", "sad", "angry")
+        self.play_student_changes("sassy", "sad", "angry")
         self.wait(3)
 
 
@@ -1453,11 +1453,11 @@ class TransitionToParallelogramIdea(TeacherStudentsScene):
             target_mode="sassy",
             added_anims=[self.teacher.change, "guilty"]
         )
-        self.change_student_modes("confused", "sassy", "angry")
+        self.play_student_changes("confused", "sassy", "angry")
         self.wait()
         self.teacher_says(
             teacher_words,
-            added_anims=[self.get_student_changes(*["pondering"] * 3)]
+            added_anims=[self.change_students(*["pondering"] * 3)]
         )
         self.wait()
 
@@ -1600,7 +1600,7 @@ class TransformingAreasYCoord(LinearTransformationScene):
         self.play(randy.change, "confused", ip)
         self.play(Blink(randy), FadeIn(morty))
         self.play(
-            PiCreatureSays(morty, "Run with \\\\ me here...", look_at_arg=randy.eyes),
+            PiCreatureSays(morty, "Run with \\\\ me here...", look_at=randy.eyes),
             randy.look_at, morty.eyes,
         )
         self.play(Blink(morty))
@@ -2221,7 +2221,7 @@ class ThinkItThroughYourself(TeacherStudentsScene):
             "Try thinking \\\\ it through!",
             target_mode="hooray"
         )
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.wait(4)
 
 
@@ -2238,15 +2238,15 @@ class AreYouPausingAndPondering(TeacherStudentsScene):
         self.teacher_says(
             "Are you pausing \\\\ and pondering?",
             target_mode="sassy",
-            added_anims=[self.get_student_changes(*3 * ["guilty"])]
+            added_anims=[self.change_students(*3 * ["guilty"])]
         )
         self.wait()
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "thinking",
             added_anims=[
                 RemovePiCreatureBubble(self.teacher, target_mode="raise_right_hand")
             ],
-            look_at_arg=self.screen
+            look_at=self.screen
         )
         self.wait(6)
 

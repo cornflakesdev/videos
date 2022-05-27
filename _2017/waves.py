@@ -469,8 +469,8 @@ class WantToLearnQM(TeacherStudentsScene):
             self.student_says(
                 question, 
                 content_introduction_kwargs = {"run_time" : 2},
-                student_index = i,
-                bubble_kwargs = {"fill_opacity" : 1},
+                index = i,
+                bubble_config = {"fill_opacity" : 1},
                 bubble_creation_class = FadeIn,
             )
             bubble = self.students[i].bubble
@@ -1049,13 +1049,13 @@ class ListRelevantWaveIdeas(TeacherStudentsScene):
             Write(title, run_time = 2),
             ShowCreation(h_line)
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
             added_anims = [LaggedStartMap(
                 FadeIn, topics,
                 run_time = 3
             )],
-            look_at_arg = title
+            look_at = title
         )
         self.play(
             Animation(title),
@@ -2362,9 +2362,9 @@ class EnergyOfWavesTeacherPortion(TeacherStudentsScene):
             Animation(dot),
             self.teacher.change, "raise_right_hand", dot,
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = dot
+            look_at = dot
         )
         self.wait(2)
         self.play(Write(energy))
@@ -2380,7 +2380,7 @@ class EnergyOfWavesTeacherPortion(TeacherStudentsScene):
                 VGroup(*component_energy[4:])
             )
         )
-        self.change_student_modes(*["happy"]*3, look_at_arg = energy)
+        self.play_student_changes(*["happy"]*3, look_at = energy)
         self.wait()
 
     def show_both_ways_of_thinking_about_it(self):
@@ -2402,9 +2402,9 @@ class EnergyOfWavesTeacherPortion(TeacherStudentsScene):
                 s.change, "thinking"
             )
             self.wait(2)
-        self.change_student_modes(
+        self.play_student_changes(
             *["plain"]*3,
-            look_at_arg = self.dot,
+            look_at = self.dot,
             added_anims = [
                 self.teacher.change, "raise_right_hand", self.dot
             ]
@@ -2905,7 +2905,7 @@ class SeeCommentInDescriptionAgain(Scene):
 class GetExperimental(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Get experimental!", target_mode = "hooray")
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(3)
 
 class ShootPhotonThroughFilter(DirectionOfPolarizationScene):
@@ -3140,7 +3140,7 @@ class YouCanSeeTheCollapse(TeacherStudentsScene):
             "You can literally \\\\ \\emph{see} the collapse",
             target_mode = "hooray"
         )
-        self.change_student_modes("confused", "hooray", "erm")
+        self.play_student_changes("confused", "hooray", "erm")
         self.wait(3)
 
 class ThreeFilters(ShootPhotonThroughFilter):
@@ -3882,9 +3882,9 @@ class CompareWaveEquations(TeacherStudentsScene):
             equation.restore,
             self.teacher.change, "raise_right_hand",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = psi_rect,
+            look_at = psi_rect,
             added_anims = [
                 ShowCreation(psi_rect),
                 Write(state_words, run_time = 1)
@@ -4007,13 +4007,13 @@ class CompareWaveEquations(TeacherStudentsScene):
             Write(c_words),
             self.teacher.change, "happy"
         )
-        self.change_student_modes(
-            *["happy"]*3, look_at_arg = c_words
+        self.play_student_changes(
+            *["happy"]*3, look_at = c_words
         )
         self.play(Write(qm_words))
-        self.change_student_modes(
+        self.play_student_changes(
             "erm", "confused", "pondering",
-            look_at_arg = qm_words
+            look_at = qm_words
         )
         self.wait()
 

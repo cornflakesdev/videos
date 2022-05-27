@@ -103,10 +103,10 @@ class ThisVideo(TeacherStudentsScene):
             self.teacher.change_mode, "raise_right_hand",
         )
         self.play(Write(VGroup(integral, v_t, dt)))
-        self.change_student_modes(*["erm"]*3)
+        self.play_student_changes(*["erm"]*3)
         self.wait()
         self.play(Write(VGroup(deriv, equals, v_T)), )
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.wait(3)
         self.play(
             this_video.restore,
@@ -421,7 +421,7 @@ class AskAboutAntiderivative(PlotVelocity):
         self.play(PiCreatureSays(
             randy, words, 
             target_mode = "confused",
-            bubble_kwargs = {"height" : 3, "width" : 4},
+            bubble_config = {"height" : 3, "width" : 4},
         ))
         self.play(Blink(randy))
         self.wait()
@@ -452,7 +452,7 @@ class Antiderivative(PiCreatureScene):
         self.pi_creature_says(
             "But first!", 
             target_mode = "surprised",
-            look_at_arg = 50*OUT,
+            look_at = 50*OUT,
             added_anims = [group.to_edge, LEFT],
             run_time = 1,
         )
@@ -616,7 +616,7 @@ class ConstantVelocityPlot(PlotVelocity):
         randy.to_corner(DOWN+LEFT)
         bubble = randy.get_bubble(
             "Distance \\\\ is area?",
-            bubble_class = ThoughtBubble,
+            bubble_type = ThoughtBubble,
             height = 3,
             width = 4,
             fill_opacity = 1,
@@ -1425,7 +1425,7 @@ class HowDoesThisHelp(TeacherStudentsScene):
             target_mode = "angry",
             run_time = 1
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "confused", "angry", "confused",
         )
         self.wait(2)
@@ -1434,7 +1434,7 @@ class HowDoesThisHelp(TeacherStudentsScene):
             target_mode = "shruggie",
             run_time = 1
         )
-        self.change_student_modes(*["sassy"]*3)
+        self.play_student_changes(*["sassy"]*3)
         self.wait(2)
 
 class AreaUnderACurve(GraphScene):
@@ -1789,7 +1789,7 @@ class DirectInterpretationOfDsDt(TeacherStudentsScene):
             self.play(part.set_color, words.get_color())
         self.wait()
         self.play(Write(VGroup(equals, v)))
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(3)
 
 class FindAntiderivative(Antiderivative):
@@ -2469,7 +2469,7 @@ class LetsRecap(TeacherStudentsScene):
             "Let's recap",
             target_mode = "hesitant",
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(3)
 
 class NegativeArea(GraphScene):

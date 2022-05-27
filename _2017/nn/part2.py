@@ -79,7 +79,7 @@ class ShowLastVideo(TeacherStudentsScene):
         )
         self.play(
             Write(title),
-            self.get_student_changes(*["thinking"]*3)
+            self.change_students(*["thinking"]*3)
         )
         self.play(
             Animation(title),
@@ -507,16 +507,16 @@ class NotSciFi(TeacherStudentsScene):
         students = self.students
         self.student_says(
             "Machines learning?!?",
-            student_index = 0,
+            index = 0,
             target_mode = "pleading",
             run_time = 1,
         )
         bubble = students[0].bubble
         students[0].bubble = None
         self.student_says(
-            "Should we \\\\ be worried?", student_index = 2,
+            "Should we \\\\ be worried?", index = 2,
             target_mode = "confused",
-            bubble_kwargs = {"direction" : LEFT},
+            bubble_config = {"direction" : LEFT},
             run_time = 1,
         )
         self.wait()
@@ -530,7 +530,7 @@ class NotSciFi(TeacherStudentsScene):
         self.student_says(
             "Even worse!", 
             target_mode = "horrified",
-            bubble_kwargs = {
+            bubble_config = {
                 "direction" : LEFT, 
                 "width" : 3,
                 "height" : 2,
@@ -1154,7 +1154,7 @@ class YellAtNetwork(PiCreatureScene, PreviewLearning):
             PiCreatureBubbleIntroduction(
                 randy, "Bad network!",
                 target_mode = "angry", 
-                look_at_arg = eyes,
+                look_at = eyes,
                 run_time = 1,
             ),
             eyes.look_at_anim(randy.eyes)
@@ -1165,7 +1165,7 @@ class YellAtNetwork(PiCreatureScene, PreviewLearning):
             FadeIn(desired),
             RemovePiCreatureBubble(
                 randy, target_mode = "sassy",
-                look_at_arg = desired
+                look_at = desired
             ),
             eyes.look_at_anim(desired)
         )
@@ -1208,7 +1208,7 @@ class ThisIsVeryComplicated(TeacherStudentsScene):
             target_mode = "surprised",
             run_time = 1,
         )
-        self.change_student_modes(*3*["guilty"])
+        self.play_student_changes(*3*["guilty"])
         self.wait(2)
 
 class EmphasizeComplexityOfCostFunction(IntroduceCostFunction):
@@ -1423,7 +1423,7 @@ class NetworkGrowthMindset(YellAtNetwork):
             PiCreatureSays(
                 randy, "Awful, just awful!",
                 target_mode = "angry",
-                look_at_arg = eyes,
+                look_at = eyes,
                 run_time = 1,
             ),
             eyes.change_mode_anim("concerned_musician")
@@ -1813,7 +1813,7 @@ class LocalVsGlobal(TeacherStudentsScene):
             Local minimum = Doable \\\\
             Global minimum = Crazy hard
         """)
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(2)
 
 class TwoVariableInputSpace(Scene):
@@ -2145,12 +2145,12 @@ class ConfusedAboutHighDimension(TeacherStudentsScene):
             "13{,}002-dimensional \\\\ nudge?",
             target_mode = "confused"
         )
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.wait(2)
         self.teacher_thinks(
             "",
-            bubble_kwargs = {"width" : 6, "height" : 4},
-            added_anims = [self.get_student_changes(*["plain"]*3)]
+            bubble_config = {"width" : 6, "height" : 4},
+            added_anims = [self.change_students(*["plain"]*3)]
         )
         self.zoom_in_on_thought_bubble()
 
@@ -2765,7 +2765,7 @@ class AskHowItDoes(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "How well \\\\ does it do?",
-            student_index = 0
+            index = 0
         )
         self.wait(5)
 
@@ -2943,12 +2943,12 @@ class ReactToPerformance(TeacherStudentsScene):
             target_mode = "surprised",
             run_time = 1
         )
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait()
         self.teacher_says(last_words, target_mode = "hesitant")
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = self.teacher.bubble
+            look_at = self.teacher.bubble
         )
         self.wait()
 
@@ -2988,7 +2988,7 @@ class NotAtAll(TeacherStudentsScene, PreviewLearning):
             words, target_mode = "guilty",
             run_time = 1
         )
-        self.change_student_modes(*["sassy"]*3)
+        self.play_student_changes(*["sassy"]*3)
         self.play(
             self.teacher.change, "concerned_musician",
             words[1].set_color, WHITE
@@ -3248,7 +3248,7 @@ class CannotDraw(PreviewLearning):
 
         self.play(PiCreatureSays(
             randy, "Draw a \\\\ 5 for me",
-            look_at_arg = eyes,
+            look_at = eyes,
             run_time = 1
         ))
         self.play(eyes.change_mode_anim("concerned_musician"))
@@ -3441,7 +3441,7 @@ class PauseAndPonder(TeacherStudentsScene):
         )
         self.play(
             ShowCreation(screen),
-            self.get_student_changes(*["pondering"]*3),
+            self.change_students(*["pondering"]*3),
         )
         self.wait(6)
 
@@ -3605,7 +3605,7 @@ class AskNetworkAboutMemorizing(YellAtNetwork):
         self.pi_creature_says(
             "Are you just \\\\ memorizing?",
             target_mode = "sassy",
-            look_at_arg = eyes,
+            look_at = eyes,
             run_time = 2
         )
         self.wait()

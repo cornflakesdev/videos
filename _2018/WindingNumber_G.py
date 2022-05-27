@@ -536,9 +536,9 @@ class PiCreaturesAreIntrigued(AltTeacherStudentsScene):
     def construct(self):
         self.teacher_says(
             "You can extend \\\\ this to 2d",
-            bubble_kwargs = {"width" : 4, "height" : 3}
+            bubble_config = {"width" : 4, "height" : 3}
         )
-        self.change_student_modes("pondering", "confused", "erm")
+        self.play_student_changes("pondering", "confused", "erm")
         self.look_at(self.screen)
         self.wait(3)
 
@@ -657,13 +657,13 @@ class RewriteEquationWithTeacher(AltTeacherStudentsScene):
             run_time = 1.5,
             path_arc = TAU/2
         ))
-        self.play(self.get_student_changes(*["pondering"]*3))
+        self.play(self.change_students(*["pondering"]*3))
         self.play(
             GrowFromCenter(brace),
             self.teacher.change, "happy"
         )
         self.play(Write(f_equals_0))
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait()
 
         #
@@ -697,16 +697,16 @@ class RewriteEquationWithTeacher(AltTeacherStudentsScene):
                 path_arc = -TAU/4,
             ),
             self.teacher.change, "hesitant",
-            self.get_student_changes(*["erm"]*3)
+            self.change_students(*["erm"]*3)
         )
         self.teacher_holds_up(two_d_equation)
-        self.change_all_student_modes("horrified")
+        self.play_all_student_changes("horrified")
         self.wait()
         self.play(
             FadeOut(two_d_equation),
             FadeInFromDown(complex_group),
         )
-        self.change_all_student_modes("confused")
+        self.play_all_student_changes("confused")
         self.wait(3)
 
 class InputOutputScene(Scene):
@@ -1121,7 +1121,7 @@ class TwoDScreenInOurThreeDWorld(AltTeacherStudentsScene, ThreeDScene):
         )
         self.play(
             LaggedStartMap(GrowFromCenter, dots, run_time = 1),
-            self.get_student_changes(*3*["erm"]),
+            self.change_students(*3*["erm"]),
         )
         self.play(LaggedStartMap(MoveToTarget, dots, path_arc = -TAU/4))
         self.wait(3)
@@ -1398,8 +1398,8 @@ class SoWeFoundTheZeros(AltTeacherStudentsScene):
         self.student_says(
             "Aha! So we \\\\ found the solutions!",
             target_mode = "hooray",
-            student_index = 2,
-            bubble_kwargs = {"direction" : LEFT},
+            index = 2,
+            bubble_config = {"direction" : LEFT},
         )
         self.wait()
         self.teacher_says(
@@ -1432,7 +1432,7 @@ class Rearrange2DEquation(AltTeacherStudentsScene):
 
 
         self.teacher_holds_up(equations[0])
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.play(Transform(
             *equations,
             run_time = 1.5,
@@ -1443,7 +1443,7 @@ class Rearrange2DEquation(AltTeacherStudentsScene):
                 GrowFromCenter(brace),
                 Write(zero_eq, run_time = 1)
             ),
-            self.get_student_changes(*["happy"]*3)
+            self.change_students(*["happy"]*3)
         )
         self.play(*[
             ApplyMethod(pi.change, "thinking", self.screen)
@@ -1706,11 +1706,11 @@ class AskAboutHowToGeneralizeSigns(AltTeacherStudentsScene):
         self.student_says(
             question,
             target_mode = "sassy",
-            student_index = 2,
+            index = 2,
             added_anims = [
                 self.teacher.change, "plain",
             ],
-            bubble_kwargs = {"direction" : LEFT},
+            bubble_config = {"direction" : LEFT},
             run_time = 1,
         )
         self.play(
@@ -2410,7 +2410,7 @@ class BackToEquationSolving(AltTeacherStudentsScene):
         self.teacher_says(
             "Back to solving \\\\ equations"
         )
-        self.change_all_student_modes("hooray")
+        self.play_all_student_changes("hooray")
         self.play(*[
             ApplyMethod(pi.look_at, self.screen)
             for pi in self.pi_creatures

@@ -656,7 +656,7 @@ class OtherViewsOfDx(TeacherStudentsScene):
         #Question
         self.student_says(
             statements[0],
-            student_index = 1,
+            index = 1,
             target_mode = "confused"
         )
         self.play(ReplacementTransform(
@@ -704,7 +704,7 @@ class OtherViewsOfDx(TeacherStudentsScene):
             self.get_students()[0],
             statements[3],
             target_mode = "maybe",
-            look_at_arg = 3*UP,
+            look_at = 3*UP,
             bubble_creation_class = FadeIn,
         )
         bubble_intro.update(1)
@@ -1029,7 +1029,7 @@ class GraphLimitExpression(GraphScene):
                 What \\emph{exactly} do you
                 mean by ``approach''
             """,
-            bubble_kwargs = {
+            bubble_config = {
                 "height" : 3,
                 "width" : 5,
                 "fill_opacity" : 1,
@@ -1043,7 +1043,7 @@ class GraphLimitExpression(GraphScene):
         self.wait()
         self.play(RemovePiCreatureBubble(
             randy, target_mode = "pondering",
-            look_at_arg = self.limit_point_hole
+            look_at = self.limit_point_hole
         ))
         self.play(
             self.ed_group.delta_lines.restore,
@@ -1396,7 +1396,7 @@ class PrefaceToEpsilonDeltaDefinition(TeacherStudentsScene):
             title.restore,
             self.get_teacher().change_mode, "raise_right_hand",
         )
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.wait()
         self.student_says(
             "Isn't that pretty \\\\ technical?",
@@ -1409,10 +1409,10 @@ class PrefaceToEpsilonDeltaDefinition(TeacherStudentsScene):
         )
         self.look_at(self.get_teacher().eyes, self.get_students())
         self.wait()
-        self.teacher_says("", bubble_kwargs = {"stroke_width" : 0})
-        self.change_student_modes(
+        self.teacher_says("", bubble_config = {"stroke_width" : 0})
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = UP+LEFT,
+            look_at = UP+LEFT,
             added_anims = [self.get_teacher().look_at, UP+LEFT]
         )
         self.wait(3)
@@ -1423,9 +1423,9 @@ class PrefaceToEpsilonDeltaDefinition(TeacherStudentsScene):
         words.set_color_by_tex("real", YELLOW)
         self.teacher_says(
             words, 
-            bubble_kwargs = {"height" : 3, "width" : 6}
+            bubble_config = {"height" : 3, "width" : 6}
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(6)
 
 class EpsilonDeltaExample(GraphLimitExpression, ZoomedScene):
@@ -1789,7 +1789,7 @@ class TheoryHeavy(TeacherStudentsScene):
         derivative.add(epsilon_delta, arrow)
         self.student_says(
             "How do you \\\\ compute limits?",
-            student_index = 2,
+            index = 2,
             added_anims = [
                 derivative.scale, 0.8,
                 derivative.to_corner, UP+LEFT
@@ -1925,7 +1925,7 @@ class LHopitalExample(LimitCounterExample, PiCreatureScene, ZoomedScene, Reconfi
         self.play(
             RemovePiCreatureBubble(
                 morty, target_mode = "pondering",
-                look_at_arg = func_1
+                look_at = func_1
             ),
             ReplacementTransform(
                 self.func_label.copy(),
@@ -2022,7 +2022,7 @@ class LHopitalExample(LimitCounterExample, PiCreatureScene, ZoomedScene, Reconfi
 
         self.pi_creature_says(
             morty, "Is there a \\\\ better way?",
-            bubble_kwargs = {
+            bubble_config = {
                 "height" : 3,
                 "width" : 4,
             },
@@ -2031,7 +2031,7 @@ class LHopitalExample(LimitCounterExample, PiCreatureScene, ZoomedScene, Reconfi
         self.play(
             RemovePiCreatureBubble(
                 morty, target_mode = "raise_left_hand",
-                look_at_arg = self.func_1_group
+                look_at = self.func_1_group
             ),
             self.func_1_group.scale, self.tex_scale_value,
             self.func_1_group.move_to, 
@@ -2827,10 +2827,10 @@ class CannotUseLHopital(TeacherStudentsScene):
         answer.set_color_by_tex("dx", GREEN)
         self.teacher_says(
             answer,
-            bubble_kwargs = {"height" : 2.5},
+            bubble_config = {"height" : 2.5},
             target_mode = "hesitant"
         )
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.wait(3)
 
 class NextVideo(TeacherStudentsScene):
@@ -2877,7 +2877,7 @@ class NextVideo(TeacherStudentsScene):
             Write(VGroup(*ftc.get_parts_by_tex(part)))
             for part in ("-", "=", "over", "(x)")
         ])
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(3)
 
 class Chapter7PatreonThanks(PatreonThanks):

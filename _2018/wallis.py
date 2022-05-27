@@ -206,7 +206,7 @@ class SourcesOfOriginality(TeacherStudentsScene):
             target_mode="speaking",
             run_time=1
         )
-        self.change_student_modes("happy", "confused", "erm")
+        self.play_student_changes("happy", "confused", "erm")
         self.wait(2)
 
     def break_down_value_of_math_presentations(self):
@@ -280,11 +280,11 @@ class SourcesOfOriginality(TeacherStudentsScene):
             RemovePiCreatureBubble(
                 self.teacher,
                 target_mode="raise_right_hand",
-                look_at_arg=title,
+                look_at=title,
             ),
-            self.get_student_changes(
+            self.change_students(
                 *["pondering"] * 3,
-                look_at_arg=title
+                look_at=title
             )
         )
         self.play(big_rect.restore)
@@ -309,9 +309,9 @@ class SourcesOfOriginality(TeacherStudentsScene):
 
         self.play(
             FadeIn(based_on_wastlund),
-            self.get_student_changes(
+            self.change_students(
                 "sassy", "erm", "plain",
-                look_at_arg=based_on_wastlund
+                look_at=based_on_wastlund
             ),
         )
         self.wait()
@@ -383,7 +383,7 @@ class SourcesOfOriginality(TeacherStudentsScene):
             FadeIn(new_proof),
             self.teacher.change, "hooray",
         )
-        self.change_all_student_modes("hooray", look_at_arg=new_proof)
+        self.play_all_student_changes("hooray", look_at=new_proof)
         self.wait(5)
 
 
@@ -785,9 +785,9 @@ class TeacherShowing(TeacherStudentsScene):
         self.play(
             ShowCreation(screen),
             self.teacher.change, "raise_right_hand", screen,
-            self.get_student_changes(
+            self.change_students(
                 *["pondering"] * 3,
-                look_at_arg=screen
+                look_at=screen
             )
         )
         self.wait(5)
@@ -2945,8 +2945,8 @@ class LocalMathematician(PiCreatureScene):
             PiCreatureSays(
                 randy, "Check these \\\\ out!",
                 target_mode="surprised",
-                bubble_kwargs={"height": 3, "width": 4},
-                look_at_arg=screen,
+                bubble_config={"height": 3, "width": 4},
+                look_at=screen,
             ),
         )
         self.play(
@@ -2954,14 +2954,14 @@ class LocalMathematician(PiCreatureScene):
             RemovePiCreatureBubble(
                 randy, 
                 target_mode="raise_right_hand",
-                look_at_arg=screen,
+                look_at=screen,
             )
         )
         self.wait(2)
         self.play(
             PiCreatureSays(
                 mathy, "Ah yes, consider \\\\ $x^n - 1$ over $\\mathds{C}$...",
-                look_at_arg=randy.eyes
+                look_at=randy.eyes
             ),
             randy.change, "happy", mathy.eyes
         )
@@ -3027,14 +3027,14 @@ class ArmedWithTwoKeyFacts(TeacherStudentsScene, DistanceProductScene):
                         *it.chain(group.family_members_with_points()))
                 ),
                 self.teacher.change, "raise_right_hand",
-                self.get_student_changes(*["pondering"] * 3)
+                self.change_students(*["pondering"] * 3)
             )
         wallis_product.move_to(labels).to_edge(RIGHT)
         self.play(
             LaggedStartMap(FadeIn, wallis_product),
             self.teacher.change_mode, "hooray",
-            self.get_student_changes(
-                *["thinking"] * 3, look_at_arg=wallis_product)
+            self.change_students(
+                *["thinking"] * 3, look_at=wallis_product)
         )
         self.wait(2)
 
@@ -4141,7 +4141,7 @@ class HowThisArgumentRequiresCommunitingLimits(PiCreatureScene):
             PiCreatureSays(
                 mathy,
                 "Whoa whoa whoa \\\\ there buddy",
-                look_at_arg=morty.eyes,
+                look_at=morty.eyes,
                 target_mode="sassy",
             ),
             morty.change, "guilty", mathy.eyes,
@@ -4153,7 +4153,7 @@ class HowThisArgumentRequiresCommunitingLimits(PiCreatureScene):
             RemovePiCreatureBubble(
                 mathy,
                 target_mode="raise_right_hand",
-                look_at_arg=factors,
+                look_at=factors,
             ),
             morty.change, "pondering", factors,
             LaggedStartMap(FadeIn, factors),
@@ -4546,7 +4546,7 @@ class JustTechnicalities(TeacherStudentsScene):
         self.teacher_says(
             "These are just \\\\ technicalities"
         )
-        self.change_all_student_modes("happy")
+        self.play_all_student_changes("happy")
         self.play(RemovePiCreatureBubble(
             self.teacher, target_mode="raise_right_hand",
         ))
@@ -4994,14 +4994,14 @@ class Conclusion(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand",
             FadeInFromDown(wallis_product),
-            self.get_student_changes("thinking", "hooray", "surprised")
+            self.change_students("thinking", "hooray", "surprised")
         )
         self.wait()
         self.play(
             self.teacher.change, "hooray",
             FadeInFromDown(sine_formula),
             wallis_product.to_edge, UP,
-            self.get_student_changes("pondering", "thinking", "erm")
+            self.change_students("pondering", "thinking", "erm")
         )
         self.wait(3)
         self.play(
@@ -5014,7 +5014,7 @@ class Conclusion(TeacherStudentsScene):
             FadeIn(euler),
             LaggedStartMap(FadeIn, basel_problem),
             self.teacher.change, "happy",
-            self.get_student_changes("sassy", "confused", "hesitant")
+            self.change_students("sassy", "confused", "hesitant")
         )
         self.wait(2)
 
@@ -5032,7 +5032,7 @@ class Conclusion(TeacherStudentsScene):
         self.play(
             ShowCreation(basel_rect),
             self.teacher.change, "surprised",
-            self.get_student_changes(*["happy"] * 3)
+            self.change_students(*["happy"] * 3)
         )
         self.wait(5)
 

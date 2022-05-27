@@ -358,7 +358,7 @@ class AngryPiCreature(PiCreatureScene):
         self.pi_creature_says(
             "No, \\emph{locality} \\\\ must be wrong!",
             target_mode = "angry",
-            look_at_arg = 2*RIGHT,
+            look_at = 2*RIGHT,
             run_time = 1
         )
         self.wait(3)
@@ -400,9 +400,9 @@ class ShowALittleMath(TeacherStudentsScene):
                 )
                 for tex in list(color_map.keys())
         ] + [Write(exp2, run_time = 2)])
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = exp2
+            look_at = exp2
         )
         self.wait(2)
 
@@ -1346,7 +1346,7 @@ class NumbersSuggestHiddenVariablesAreImpossible(TeacherStudentsScene):
             "These numbers suggest\\\\",
             "no hidden variables"
         )
-        self.change_student_modes("erm", "sassy", "confused")
+        self.play_student_changes("erm", "sassy", "confused")
         self.wait(3)
 
 class VennDiagramProofByContradiction(Scene):

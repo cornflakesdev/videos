@@ -6,16 +6,16 @@ class WhyWouldYouCare(TeacherStudentsScene):
         self.student_says(
             "Who cares!",
             target_mode="sassy",
-            student_index=2,
+            index=2,
             added_anims=[self.teacher.change, "guilty"],
         )
         self.wait()
         self.play(
             RemovePiCreatureBubble(self.students[2]),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "erm", "thinking",
-                look_at_arg=self.screen,
+                look_at=self.screen,
             )
         )
         self.look_at(self.screen)
@@ -27,17 +27,17 @@ class SolveForWavesNothingElse(TeacherStudentsScene):
         self.student_says(
             "Sure, we can\\\\solve it for\\\\sums of waves...",
             target_mode="sassy",
-            student_index=2,
+            index=2,
             added_anims=[self.teacher.change, "guilty"]
         )
-        self.change_student_modes("pondering", "pondering", "sassy")
+        self.play_student_changes("pondering", "pondering", "sassy")
         self.look_at(self.screen)
         self.wait(4)
         self.student_says(
             "But nothing else!",
             target_mode="angry",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "concerned_musician",
             "concerned_musician",
             "angry",
@@ -107,7 +107,7 @@ class HangOnThere(TeacherStudentsScene):
             "Hang on\\\\hang on\\\\hang on...",
             target_mode="surprised",
             content_introduction_class=FadeIn,
-            student_index=2,
+            index=2,
             added_anims=[
                 self.teacher.change, "guilty"
             ],
@@ -118,7 +118,7 @@ class HangOnThere(TeacherStudentsScene):
             RemovePiCreatureBubble(
                 student,
                 target_mode="raise_left_hand",
-                look_at_arg=group,
+                look_at=group,
             ),
             FadeInFromDown(group),
         )
@@ -156,7 +156,7 @@ class HangOnThere(TeacherStudentsScene):
             ),
             self.teacher.change, "thinking",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "confused", "confused", "angry"
         )
         self.wait(3)
@@ -164,8 +164,8 @@ class HangOnThere(TeacherStudentsScene):
 
 class YouSaidThisWasEasier(TeacherStudentsScene):
     def construct(self):
-        self.change_all_student_modes(
-            "confused", look_at_arg=self.screen,
+        self.play_all_student_changes(
+            "confused", look_at=self.screen,
         )
         self.student_says(
             "I'm sorry, you said\\\\this was easier?",
@@ -175,7 +175,7 @@ class YouSaidThisWasEasier(TeacherStudentsScene):
         self.wait(3)
         self.teacher_says(
             "Bear with\\\\me",
-            bubble_kwargs={"height": 3, "width": 3},
+            bubble_config={"height": 3, "width": 3},
         )
         self.look_at(self.screen)
         self.wait(3)
@@ -198,14 +198,14 @@ class LooseWithLanguage(TeacherStudentsScene):
 
         self.teacher_says(
             "Loose with\\\\language",
-            bubble_kwargs={"width": 3, "height": 3},
+            bubble_config={"width": 3, "height": 3},
             run_time=2,
         )
         self.play(
             FadeIn(terms[1], DOWN),
-            self.get_student_changes(
+            self.change_students(
                 "thinking", "pondering", "erm",
-                look_at_arg=terms,
+                look_at=terms,
             )
         )
         self.play(FadeInFromDown(terms[0]))
@@ -227,9 +227,9 @@ class FormulaOutOfContext(TeacherStudentsScene):
         formula.next_to(self.students, UP, LARGE_BUFF)
 
         self.add(formula)
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "horrified",
-            look_at_arg=formula,
+            look_at=formula,
         )
         self.play(self.teacher.change, "tease")
         self.wait(3)

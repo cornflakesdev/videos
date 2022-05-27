@@ -1841,12 +1841,12 @@ class HarderThanExpected(TeacherStudentsScene):
             FadeInFromDown(title),
             ShowCreation(line),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes("pondering", "confused", "sassy")
+            self.change_students("pondering", "confused", "sassy")
         )
         self.wait()
         self.play(
             FadeIn(words, UP),
-            self.get_student_changes(*3 * ["horrified"]),
+            self.change_students(*3 * ["horrified"]),
         )
         self.wait(3)
 
@@ -2151,7 +2151,7 @@ class SixOnSix(Describe2011IMO):
 class AlwaysStartSimple(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Always start\\\\simple")
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.wait(3)
 
 
@@ -3229,7 +3229,7 @@ class TwoTakeaways(TeacherStudentsScene):
             GrowFromPoint(title, self.hold_up_spot),
             self.teacher.change, "raise_right_hand",
         )
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.wait()
         for item in items:
             self.play(FadeIn(item, LEFT))
@@ -3336,7 +3336,7 @@ class FailureToEmpathize(PiCreatureScene):
         self.pi_creature_thinks(
             randy, equation,
             target_mode="confused",
-            look_at_arg=equation,
+            look_at=equation,
         )
         randy_group = VGroup(
             randy, randy.bubble,

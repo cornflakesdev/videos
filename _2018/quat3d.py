@@ -154,14 +154,14 @@ class ButFirst(TeacherStudentsScene):
             student.change("surprised")
 
         self.teacher_says("But first!")
-        self.change_all_student_modes("happy")
+        self.play_all_student_changes("happy")
         self.play(RemovePiCreatureBubble(
             self.teacher,
             target_mode="raise_right_hand"
         ))
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"] * 3,
-            look_at_arg=self.screen,
+            look_at=self.screen,
         )
         self.play(self.teacher.look_at, self.screen)
         self.wait(4)
@@ -264,7 +264,7 @@ class WhoCares(TeacherStudentsScene):
             target_mode="sassy",
             added_anims=[self.teacher.change, "guilty"]
         )
-        self.change_student_modes("angry", "sassy", "sad")
+        self.play_student_changes("angry", "sassy", "sad")
         self.wait(2)
         self.play(
             RemovePiCreatureBubble(self.students[1]),
@@ -275,7 +275,7 @@ class WhoCares(TeacherStudentsScene):
         #         FadeInFromDown, quotes,
         #         run_time=3
         #     ),
-        #     self.get_student_changes(*3 * ["pondering"], look_at_arg=quotes)
+        #     self.change_students(*3 * ["pondering"], look_at=quotes)
         # )
         # self.wait(2)
 
@@ -309,9 +309,9 @@ class WhoCares(TeacherStudentsScene):
         # hn_rect.shift(0.225 * RIGHT + 0.75 * DOWN)
         # self.play(
         #     ShowCreation(hn_rect),
-        #     self.get_student_changes(
+        #     self.change_students(
         #         "erm", "thinking", "confused",
-        #         look_at_arg=hn_quote,
+        #         look_at=hn_quote,
         #     )
         # )
         # self.add_foreground_mobjects(vr_headsets)
@@ -320,9 +320,9 @@ class WhoCares(TeacherStudentsScene):
         #         FadeInFrom, vr_headsets,
         #         lambda m: (m, UP),
         #     ),
-        #     self.get_student_changes(
+        #     self.change_students(
         #         *3 * ["sick"],
-        #         look_at_arg=hn_quote,
+        #         look_at=hn_quote,
         #         run_time=3
         #     )
         # )
@@ -345,15 +345,15 @@ class WhoCares(TeacherStudentsScene):
         t_quote.fade(1)
         t_quote.to_corner(UL)
         self.play(
-            self.get_student_changes(*3 * ["pondering"], look_at_arg=quotes),
+            self.change_students(*3 * ["pondering"], look_at=quotes),
             t_quote.set_opacity, 1,
             t_quote.scale, 2,
             t_quote.to_corner, UL,
         )
         self.wait(2)
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "happy", "tease",
-            look_at_arg=t_quote
+            look_at=t_quote
         )
         self.wait(2)
         self.play(FadeOut(t_quote))
@@ -872,17 +872,17 @@ class RememberComplexNumbers(TeacherStudentsScene):
         self.teacher_says(
             "Remember how \\\\ complex numbers \\\\ compute rotations"
         )
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.wait()
         self.play(
             FadeInFromDown(complex_number),
-            self.get_student_changes(
+            self.change_students(
                 "thinking", "confused", "happy",
-                look_at_arg=complex_number.get_center() + UP
+                look_at=complex_number.get_center() + UP
             ),
             run_time=2
         )
-        self.change_student_modes(
+        self.play_student_changes(
         )
         self.wait(5)
 
@@ -1371,15 +1371,15 @@ class ExpandOutFullProduct(TeacherStudentsScene):
         )
         self.play(
             LaggedStartMap(GrowFromCenter, braces),
-            self.get_student_changes(
+            self.change_students(
                 "confused", "horrified", "confused"
             )
         )
         self.wait(2)
         self.play(Write(words))
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "confused", "erm",
-            look_at_arg=words
+            look_at=words
         )
         self.wait(5)
 

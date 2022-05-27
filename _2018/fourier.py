@@ -87,9 +87,9 @@ class Introduction(TeacherStudentsScene):
 
         self.student_thinks(
             "What's that?",
-            look_at_arg = title,
+            look_at = title,
             target_mode = "confused",
-            student_index = 1,
+            index = 1,
         )
         self.play(
             GrowArrow(arrow),
@@ -99,7 +99,7 @@ class Introduction(TeacherStudentsScene):
         self.student_thinks(
             "Pssht, I got this",
             target_mode = "tease",
-            student_index = 2,
+            index = 2,
             added_anims = [RemovePiCreatureBubble(self.students[1])]
         )
         self.play(self.teacher.change, "hesitant")
@@ -1669,9 +1669,9 @@ class DrawFrequencyPlot(WrapCosineGraphAroundCircle, PiCreatureScene):
 
 class StudentsHorrifiedAtScene(TeacherStudentsScene):
     def construct(self):
-        self.change_student_modes(
+        self.play_student_changes(
             *3*["horrified"],
-            look_at_arg = 2*UP + 3*LEFT
+            look_at = 2*UP + 3*LEFT
         )
         self.wait(4)
 
@@ -1681,11 +1681,11 @@ class AskAboutAlmostFouierName(TeacherStudentsScene):
             "``Almost'' Fourier transform?",
             target_mode = "sassy"
         )
-        self.change_student_modes("confused", "sassy", "confused")
+        self.play_student_changes("confused", "sassy", "confused")
         self.wait()
         self.teacher_says(
             "We'll get to the real \\\\ one in a few minutes",
-            added_anims = [self.get_student_changes(*["plain"]*3)]
+            added_anims = [self.change_students(*["plain"]*3)]
         )
         self.wait(2)
 
@@ -2227,7 +2227,7 @@ class PauseAndPonder(TeacherStudentsScene):
             "Pause and \\\\ ponder!",
             target_mode = "hooray"
         )
-        self.change_student_modes(*["thinking"]*3)
+        self.play_student_changes(*["thinking"]*3)
         self.wait(4)
 
 class BeforeGettingToTheFullMath(TeacherStudentsScene):
@@ -2241,7 +2241,7 @@ class BeforeGettingToTheFullMath(TeacherStudentsScene):
         self.play(
             Write(formula),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(*["confused"]*3)
+            self.change_students(*["confused"]*3)
         )
         self.wait()
         self.play(
@@ -2250,7 +2250,7 @@ class BeforeGettingToTheFullMath(TeacherStudentsScene):
                 path_arc = TAU/16,
                 rate_func = running_start,
             ),
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.teacher_says("Consider sound editing\\dots")
         self.wait(3)
@@ -2470,7 +2470,7 @@ class FilterOutHighPitch(AddingPureFrequencies, ShowCommutativeDiagram):
 class AskAboutInverseFourier(TeacherStudentsScene):
     def construct(self):
         self.student_says("Inverse Fourier?")
-        self.change_student_modes("confused", "raise_right_hand", "confused")
+        self.play_student_changes("confused", "raise_right_hand", "confused")
         self.wait(2)
 
 class ApplyFourierToFourier(DrawFrequencyPlot):
@@ -3184,7 +3184,7 @@ class BuildUpExpressionStepByStep(TeacherStudentsScene):
             FadeIn(two_pi_i),
         )
         self.play(
-            self.get_student_changes(*["pondering"]*3),
+            self.change_students(*["pondering"]*3),
             FadeIn(t),
         )
         self.play(
@@ -3202,7 +3202,7 @@ class BuildUpExpressionStepByStep(TeacherStudentsScene):
         self.wait(3)
         self.teacher_says(
             "Just one final \\\\ distinction.",
-            bubble_kwargs = {"height" : 2.5, "width" : 3.5},
+            bubble_config = {"height" : 2.5, "width" : 3.5},
             added_anims = [expression.to_corner, UP+RIGHT]
         )
         self.wait(3)
@@ -3532,7 +3532,7 @@ class TakeAStepBack(TeacherStudentsScene):
             "Hang on, go over \\\\ that again?",
             target_mode = "confused"
         ),
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.play(self.teacher.change, "happy")
         self.wait(3)
 
@@ -3827,7 +3827,7 @@ class OneSmallNote(TeacherStudentsScene):
             "Just one \\\\ small note...",
             # target_mode = 
         )
-        self.change_student_modes("erm", "happy", "sassy")
+        self.play_student_changes("erm", "happy", "sassy")
         self.wait(2)
 
 class BoundsAtInfinity(SummarizeFormula):
@@ -3955,7 +3955,7 @@ class MoreToCover(TeacherStudentsScene):
         self.teacher_says(
             "SO MUCH!",
             target_mode = "surprised",
-            added_anims = [self.get_student_changes(*3*["happy"])],
+            added_anims = [self.change_students(*3*["happy"])],
             run_time = 0.5
         )
         self.wait(2)
@@ -4096,7 +4096,7 @@ class SubscribeOrBinge(PiCreatureScene):
 class CloseWithAPuzzle(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Close with a puzzle!", run_time = 1)
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(3)
 
 class PuzzleDescription(Scene):

@@ -699,7 +699,7 @@ class AskAboutSoundlessness(TeacherStudentsScene):
             "Focus on \\\\ collisions",
             target_mode="speaking",
             added_anims=[
-                self.get_student_changes("pondering", "confused", "thinking")
+                self.change_students("pondering", "confused", "thinking")
             ]
         )
         self.look_at(self.screen)
@@ -735,7 +735,7 @@ class AskWhatWillHappen(PiCreatureScene):
             "What will\\\\"
             "happen?",
             target_mode="maybe",
-            look_at_arg=4 * DR,
+            look_at=4 * DR,
         )
         self.wait(3)
 
@@ -1020,15 +1020,15 @@ class StepsOfTheAlgorithm(TeacherStudentsScene):
             )
             self.play(
                 Write(step[1], run_time=2),
-                self.get_student_changes(
+                self.change_students(
                     *["pondering"] * 3,
-                    look_at_arg=step,
+                    look_at=step,
                 )
             )
             self.wait()
-        self.change_student_modes(
+        self.play_student_changes(
             "sassy", "erm", "confused",
-            look_at_arg=steps,
+            look_at=steps,
             added_anims=[self.teacher.change, "happy"]
         )
         self.wait(3)
@@ -1371,10 +1371,10 @@ class CompareAlgorithmToPhysics(PiCreatureScene):
             FadeOut(left_rect),
             PiCreatureBubbleIntroduction(
                 morty, "This doesn't seem \\\\ like me...",
-                bubble_class=ThoughtBubble,
-                bubble_kwargs={"direction": LEFT},
+                bubble_type=ThoughtBubble,
+                bubble_config={"direction": LEFT},
                 target_mode="pondering",
-                look_at_arg=left_rect,
+                look_at=left_rect,
             ),
             LaggedStartMap(
                 FadeInFrom, digits,
@@ -1403,7 +1403,7 @@ class AskAboutWhy(TeacherStudentsScene):
         ke_conservation.move_to(circle)
 
         self.student_says("But why?")
-        self.change_student_modes(
+        self.play_student_changes(
             "erm", "raise_left_hand", "sassy",
             added_anims=[self.teacher.change, "happy"]
         )
@@ -1413,15 +1413,15 @@ class AskAboutWhy(TeacherStudentsScene):
             RemovePiCreatureBubble(self.students[1]),
             self.teacher.change, "raise_right_hand",
         )
-        self.change_all_student_modes(
-            "pondering", look_at_arg=circle
+        self.play_all_student_changes(
+            "pondering", look_at=circle
         )
         self.wait(2)
         self.play(
             Write(ke_conservation),
             circle.stretch, 1.5, 0,
         )
-        self.change_all_student_modes("confused")
+        self.play_all_student_changes("confused")
         self.look_at(circle)
         self.wait(3)
 

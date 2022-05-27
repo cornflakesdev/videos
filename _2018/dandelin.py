@@ -186,16 +186,16 @@ class HoldUpProof(TeacherStudentsScene):
 
         self.play(
             self.teacher.change, "raise_right_hand", self.screen,
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "confused", "maybe",
-                look_at_arg=title
+                look_at=title
             )
         )
         self.look_at(title)
         self.wait(5)
-        self.change_student_modes(
+        self.play_student_changes(
             "happy", "thinking", "hooray",
-            look_at_arg=title
+            look_at=title
         )
         self.wait(5)
 
@@ -732,19 +732,19 @@ class AskWhyAreTheyTheSame(TeacherStudentsScene):
         morty = self.teacher
         self.student_says(
             "Why on earth \\\\ are these the same?",
-            student_index=2,
+            index=2,
             target_mode="sassy",
-            bubble_kwargs={"direction": LEFT}
+            bubble_config={"direction": LEFT}
         )
         bubble = self.students[2].bubble
         self.play(
             morty.change, "awe",
-            self.get_student_changes("confused", "confused", "sassy")
+            self.change_students("confused", "confused", "sassy")
         )
         self.look_at(self.screen)
         self.wait(3)
         self.play(morty.change, "thinking", self.screen)
-        self.change_student_modes("maybe", "erm", "confused")
+        self.play_student_changes("maybe", "erm", "confused")
         self.look_at(self.screen)
         self.wait(3)
 
@@ -865,14 +865,14 @@ class ShowMeasurementBook(TeacherStudentsScene):
             self.teacher.change, "raise_right_hand",
             FadeInFromDown(measurement)
         )
-        self.change_all_student_modes("hooray")
+        self.play_all_student_changes("hooray")
         self.wait()
         self.play(
             GrowArrow(arrow),
             FadeIn(words, RIGHT),
-            self.get_student_changes(
+            self.change_students(
                 "thinking", "happy", "pondering",
-                look_at_arg=arrow
+                look_at=arrow
             )
         )
         self.wait(3)
@@ -1673,7 +1673,7 @@ class ReactionToGlimpseOfGenius(TeacherStudentsScene, CreativeConstruction):
             morty.change, "raise_right_hand",
             FadeInFromDown(lightbulb),
             RemovePiCreatureBubble(self.students[1]),
-            self.get_student_changes(*3 * ["confused"]),
+            self.change_students(*3 * ["confused"]),
             run_time=1
         )
         self.play(Transform(
@@ -1686,9 +1686,9 @@ class ReactionToGlimpseOfGenius(TeacherStudentsScene, CreativeConstruction):
             ClockPassesTime(clock, hours_passed=4, run_tim=4),
             VFadeIn(clock),
             GrowArrow(arrow),
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["pondering"],
-                look_at_arg=clock
+                look_at=clock
             )
         )
         self.play(
@@ -1697,9 +1697,9 @@ class ReactionToGlimpseOfGenius(TeacherStudentsScene, CreativeConstruction):
             FadeOut(arrow),
             lightbulb.scale, 1.5,
             lightbulb.move_to, 2 * UP,
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["awe"],
-                look_at_arg=2 * UP
+                look_at=2 * UP
             ),
             run_time=1
         )

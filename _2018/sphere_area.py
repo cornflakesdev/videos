@@ -297,9 +297,9 @@ class ButWhy(TeacherStudentsScene):
             student.change("pondering", self.screen)
         self.student_says(
             "But why?",
-            student_index=2,
+            index=2,
             target_mode=self.student_mode,
-            bubble_kwargs={"direction": LEFT},
+            bubble_config={"direction": LEFT},
         )
         self.play(
             self.teacher.change, self.teacher_mode, self.students[2]
@@ -1951,11 +1951,11 @@ class WhyAreWeDoingThis(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "Hang on, what \\\\ are we doing?",
-            student_index=2,
-            bubble_kwargs={"direction": LEFT},
+            index=2,
+            bubble_config={"direction": LEFT},
             target_mode="hesitant"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "maybe", "pondering", "hesitant",
             added_anims=[self.teacher.change, "tease"]
         )
@@ -1963,7 +1963,7 @@ class WhyAreWeDoingThis(TeacherStudentsScene):
         self.play(
             RemovePiCreatureBubble(self.students[2]),
             self.teacher.change, "raise_right_hand",
-            self.change_student_modes(*2 * ["pondering"])
+            self.play_student_changes(*2 * ["pondering"])
         )
         self.look_at(self.screen)
         self.wait(2)
@@ -2650,9 +2650,9 @@ class AskAboutDirectConnection(TeacherStudentsScene, SpecialThreeDScene):
 
         self.play(
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["pondering"],
-                look_at_arg=group,
+                look_at=group,
             ),
             LaggedStartMap(FadeInFromDown, group),
             LaggedStartMap(GrowArrow, arrows)
@@ -2669,7 +2669,7 @@ class AskAboutDirectConnection(TeacherStudentsScene, SpecialThreeDScene):
                 run_time=1.5,
             )
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "erm", "sassy", "raise_right_hand",
         )
         self.wait(2)
@@ -2731,13 +2731,13 @@ class ExercisesGiveLearning(MovingCameraScene):
 
 class NobodyLikesHomework(TeacherStudentsScene):
     def construct(self):
-        self.change_student_modes(
+        self.play_student_changes(
             "angry", "pleading", "angry",
             added_anims=[self.teacher.change, "guilty"]
         )
         self.wait()
-        self.change_all_student_modes(
-            "tired", look_at_arg=8 * RIGHT + 4 * DOWN,
+        self.play_all_student_changes(
+            "tired", look_at=8 * RIGHT + 4 * DOWN,
             added_anims=[self.teacher.change, "tease"]
         )
         self.wait(2)
@@ -3347,8 +3347,8 @@ class YouCouldIntegrate(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "Integrate?",
-            student_index=2,
-            bubble_kwargs={"direction": LEFT},
+            index=2,
+            bubble_config={"direction": LEFT},
         )
         self.play(self.teacher.change, "hesitant")
         self.wait()
@@ -3356,7 +3356,7 @@ class YouCouldIntegrate(TeacherStudentsScene):
             "We'll be a bit \\\\ more Archimedean",
             target_mode="speaking"
         )
-        self.change_all_student_modes("confused")
+        self.play_all_student_changes("confused")
         self.wait()
 
 
@@ -3650,7 +3650,7 @@ class PatronWords(Scene):
 class PlushMe(TeacherStudentsScene):
     def construct(self):
         self.student_says("Plushie me?")
-        self.change_student_modes("happy", None, "happy")
+        self.play_student_changes("happy", None, "happy")
         self.play(self.teacher.change, "confused")
         self.wait()
         self.teacher_says("...why?", target_mode="maybe")

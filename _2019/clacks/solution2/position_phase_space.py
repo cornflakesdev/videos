@@ -1330,9 +1330,9 @@ class RescaleCoordinates(PositionPhaseSpaceScene, MovingCameraScene):
         self.play(
             PiCreatureSays(
                 randy, "Hideous!",
-                bubble_kwargs={"height": 1.5, "width": 2},
+                bubble_config={"height": 1.5, "width": 2},
                 target_mode="angry",
-                look_at_arg=axes.labels[0]
+                look_at=axes.labels[0]
             )
         )
         self.play(randy.look_at, axes.labels[1])

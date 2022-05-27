@@ -743,13 +743,13 @@ class BeforeCounting(TeacherStudentsScene):
 
         self.teacher.change_mode("raise_right_hand")
         self.add(triangle)
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.play(
             triangle.scale, 0.5,
             triangle.to_corner, UP+RIGHT,
             self.teacher.change_mode, "sassy"
         )
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.play(Write(prob))
         self.play(
             GrowFromCenter(brace),
@@ -1877,7 +1877,7 @@ class ProbablyWrong(TeacherStudentsScene):
             "Probably wrong!",
             run_time = 1,
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["angry"]*3,
             run_time = 1
         )
@@ -1972,7 +1972,7 @@ class ShowTrueDistribution(PiCreatureScene):
         self.play(PiCreatureSays(
             randy, "It's not representative!",
             target_mode = "pleading",
-            bubble_kwargs = {"fill_opacity" : 1}
+            bubble_config = {"fill_opacity" : 1}
         ))
         self.wait(2)
 
@@ -2963,15 +2963,15 @@ class PointOutSimplicityOfFormula(TeacherStudentsScene, GeneralBinomialDistribut
             prob.restore,
             self.teacher.change_mode, "raise_right_hand"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = prob
+            look_at = prob
         )
         self.wait()
         self.student_says(
             "Simpler than I feared",
             target_mode = "hooray",
-            student_index = 0,
+            index = 0,
             added_anims = [prob.to_corner, UP+RIGHT]
         )
         self.wait()
@@ -3111,7 +3111,7 @@ class ButWhatsTheAnswer(TeacherStudentsScene):
             "But what's the \\\\ actual answer?",
             target_mode = "confused"
         )
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.wait()
         self.play(self.teacher.change, "pondering")
         self.wait(3)
@@ -3261,7 +3261,7 @@ class FormulaCanBeRediscovered(PointOutSimplicityOfFormula):
             GrowFromCenter(brace),
             Write(rediscover, run_time = 1)
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(2)
 
 class CompareTwoSituations(PiCreatureScene):
@@ -3318,7 +3318,7 @@ class SkepticalOfDistributions(TeacherStudentsScene):
             self.wait()
         self.student_says(
             "Is that valid?", target_mode = "sassy",
-            student_index = 0,
+            index = 0,
             run_time = 1
         )
         self.play(self.teacher.change, "guilty")
@@ -3349,7 +3349,7 @@ class SkepticalOfDistributions(TeacherStudentsScene):
         self.play(FadeIn(gaussian, lag_ratio = 0.5))
         self.play(Write(gaussian.title, run_time = 1))
         self.wait(2)
-        self.change_student_modes(
+        self.play_student_changes(
             *["sassy"]*3,
             added_anims = [self.teacher.change, "plain"]
         )

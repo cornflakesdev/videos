@@ -594,9 +594,9 @@ class CarefulWithLasers(TeacherStudentsScene):
             pi.add_updater(lambda p: p.look_at(laser[1]))
         self.play(
             ShowCreation(laser),
-            self.get_student_changes(
+            self.change_students(
                 "surprised", "hooray", "horrified",
-                look_at_arg=laser
+                look_at=laser
             )
         )
         self.teacher_says(
@@ -695,7 +695,7 @@ class AskAboutTurbulence(TeacherStudentsScene):
             target_mode='raise_left_hand',
             added_anims=[morty.change, 'pondering']
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "erm", "raise_left_hand", "confused",
         )
         self.wait(3)
@@ -704,9 +704,9 @@ class AskAboutTurbulence(TeacherStudentsScene):
             FadeOut(randy.bubble),
             ReplacementTransform(VGroup(words[1], words[3]), question),
             FadeOut(VGroup(words[0], words[2])),
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["pondering"],
-                look_at_arg=question
+                look_at=question
             )
         )
         self.play(
@@ -931,7 +931,7 @@ class VorticityDoesNotImplyTurbulence(TeacherStudentsScene):
         self.play(t_to_v.shift, 2 * UP,)
         self.play(
             TransformFromCopy(t_to_v, v_to_t, path_arc=PI / 2),
-            self.get_student_changes(
+            self.change_students(
                 "erm", "confused", "sassy",
                 run_time=1
             ),
@@ -1516,7 +1516,7 @@ class FiveThirds(TeacherStudentsScene):
             "5/3", "is a sort of fundamental\\\\ constant of turbulence"
         )
         self.teacher_says(words)
-        self.change_student_modes("pondering", "maybe", "erm")
+        self.play_student_changes("pondering", "maybe", "erm")
         self.play(
             FadeOut(self.teacher.bubble),
             FadeOut(words[1]),
@@ -1524,7 +1524,7 @@ class FiveThirds(TeacherStudentsScene):
             words[0].scale, 1.5,
             words[0].move_to, self.hold_up_spot
         )
-        self.change_student_modes("thinking", "pondering", "hooray")
+        self.play_student_changes("thinking", "pondering", "hooray")
         self.wait(3)
 
 

@@ -30,14 +30,14 @@ class WhatDoesItReallyMean(TeacherStudentsScene):
         )
         self.teacher_says(
             "Don't worry -- philosophy\\\\ can come later!",
-            added_anims=[self.get_student_changes(*3 * ["happy"])],
+            added_anims=[self.change_students(*3 * ["happy"])],
         )
         self.wait(2)
         self.play(RemovePiCreatureBubble(self.teacher))
         self.play(*[
             ApplyMethod(pi.look_at, ORIGIN) for pi in self.get_pi_creatures()
         ])
-        self.change_all_student_modes("pondering", look_at_arg=UP)
+        self.play_all_student_changes("pondering", look_at=UP)
         self.wait(3)
-        self.change_student_modes("confused", look_at_arg=UP)
+        self.play_student_changes("confused", look_at=UP)
         self.wait(3)

@@ -44,7 +44,7 @@ class OldStreamIntro(Scene):
         morty.to_corner(DL)
         self.play(PiCreatureSays(
             morty, "The lesson will\\\\begin soon.",
-            bubble_kwargs={
+            bubble_config={
                 "height": 2,
                 "width": 3,
             },
@@ -77,21 +77,21 @@ class QuadraticFormula(TeacherStudentsScene):
         formula.next_to(self.students, UP, buff=MED_LARGE_BUFF, aligned_edge=LEFT)
         self.add(formula)
 
-        self.change_student_modes(
+        self.play_student_changes(
             "angry", "tired", "sad",
-            look_at_arg=formula,
+            look_at=formula,
         )
         self.teacher_says(
             "It doesn't have\\\\to be this way.",
-            bubble_kwargs={
+            bubble_config={
                 "width": 4,
                 "height": 3,
             }
         )
         self.wait(5)
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "thinking", "erm",
-            look_at_arg=formula
+            look_at=formula
         )
         self.wait(12)
 

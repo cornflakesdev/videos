@@ -316,7 +316,7 @@ class MentionUncertaintyPrinciple(TeacherStudentsScene):
         self.play(
             Write(title),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.play(
             Write(dot_brace_anim.mobject, run_time = 1)
@@ -338,7 +338,7 @@ class MentionUncertaintyPrinciple(TeacherStudentsScene):
         self.play(
             vector_cloud.gaussian_distribution_wrapper.change_parameters,
             {"sigma" : RIGHT},
-            self.get_student_changes(*3*["confused"]),
+            self.change_students(*3*["confused"]),
             run_time = 3,
         )
         #Back and forth
@@ -350,7 +350,7 @@ class MentionUncertaintyPrinciple(TeacherStudentsScene):
                 {"sigma" : 0.1*RIGHT},
                 run_time = 3,
             )
-            self.change_student_modes("thinking", "erm", "sassy")
+            self.play_student_changes("thinking", "erm", "sassy")
             self.play(
                 dot_cloud.gaussian_distribution_wrapper.change_parameters,
                 {"sigma" : 0.1*RIGHT},
@@ -647,12 +647,12 @@ class StartWithIntuition(TeacherStudentsScene):
     def construct(self):
         self.teacher_says(
             "You already \\\\ have this \\\\ intuition",
-            bubble_kwargs = {
+            bubble_config = {
                 "height" : 3.5,
                 "width" : 3,
             },
         )
-        self.change_student_modes("pondering", "erm", "maybe")
+        self.play_student_changes("pondering", "erm", "maybe")
         self.look_at(VectorizedPoint(4*LEFT + 2*UP))
         self.wait(5)
 
@@ -1096,7 +1096,7 @@ class CrossOutDefinitenessAndCertainty(TeacherStudentsScene):
             ShowCreation(crosses[0])
         )
         self.play(
-            self.get_student_changes(*3*["erm"]),
+            self.change_students(*3*["erm"]),
             ShowCreation(crosses[1])
         )
         self.wait(2)
@@ -1114,7 +1114,7 @@ class BringInFourierTranform(TeacherStudentsScene):
             self.teacher.change, "raise_right_hand",
             fourier.restore
         )
-        self.change_student_modes("happy", "erm", "confused")
+        self.play_student_changes("happy", "erm", "confused")
         self.look_at(3*LEFT + 2*UP)
         self.wait(3)
 
@@ -1455,11 +1455,11 @@ class AskAboutLongVsShort(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "What happens if we \\\\ change the length of \\\\ the signal?",
-            student_index = 2,
+            index = 2,
         )
         self.play(
             self.teacher.change, "happy",
-            self.get_student_changes("pondering", "confused", "raise_right_hand")
+            self.change_students("pondering", "confused", "raise_right_hand")
         )
         self.wait(5)
 
@@ -1672,11 +1672,11 @@ class MentionDopplerRadar(TeacherStudentsScene):
             self.teacher.change, "hooray",
             words.restore
         )
-        self.change_student_modes("pondering", "erm", "sassy")
+        self.play_student_changes("pondering", "erm", "sassy")
         self.wait(2)
         self.play(
             self.teacher.change, "happy",
-            self.get_student_changes(*["thinking"]*3)
+            self.change_students(*["thinking"]*3)
         )
         self.wait()
         dish.set_stroke(width = 0)
@@ -2113,7 +2113,7 @@ class MentionPRFNuance(TeacherStudentsScene):
             ShowCreation(shift_graph),
             FadeIn(brace),
             Write(displayed_doppler_shift, run_time = 1),
-            self.get_student_changes(*3*["sassy"]),
+            self.change_students(*3*["sassy"]),
         )
         self.play(
             UpdateFromAlphaFunc(
@@ -2157,7 +2157,7 @@ class MentionPRFNuance(TeacherStudentsScene):
                 )
             ],
         )
-        self.change_student_modes(*3*["hesitant"])
+        self.play_student_changes(*3*["hesitant"])
         self.wait(2)
 
 
@@ -2407,14 +2407,14 @@ class AmbiguityInLongEchos(IntroduceDopplerRadar, PiCreatureScene):
         self.play(FadeIn(randy))
         self.play(PiCreatureBubbleIntroduction(
             randy, "Who cares?",
-            bubble_class = ThoughtBubble,
-            bubble_kwargs = {
+            bubble_type = ThoughtBubble,
+            bubble_config = {
                 "direction" : LEFT,
                 "width" : 2,
                 "height": 1.5,
             },
             target_mode = "maybe",
-            look_at_arg = brace,
+            look_at = brace,
         ))
         self.play(Blink(randy))
         self.play(LaggedStartMap(
@@ -3124,7 +3124,7 @@ class ShowMomentumFormula(IntroduceDeBroglie, TeacherStudentsScene):
         self.play(
             Write(xi_words),
             GrowArrow(xi_arrow),
-            self.get_student_changes("confused", "erm", "sassy"),
+            self.change_students("confused", "erm", "sassy"),
             stopped_wave_propagation
         )
         self.play(
@@ -3133,7 +3133,7 @@ class ShowMomentumFormula(IntroduceDeBroglie, TeacherStudentsScene):
         )
         self.play(
             LaggedStartMap(ShowCreation, v_lines),
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.play(LaggedStartMap(FadeOut, v_lines))
         self.wait()
@@ -3153,9 +3153,9 @@ class ShowMomentumFormula(IntroduceDeBroglie, TeacherStudentsScene):
         student = self.students[2]
         self.student_says(
             "Hang on...",
-            bubble_kwargs = {"height" : 2, "width" : 2, "direction" : LEFT},
+            bubble_config = {"height" : 2, "width" : 2, "direction" : LEFT},
             target_mode = "sassy",
-            student_index = 2,
+            index = 2,
             added_anims = [self.teacher.change, "plain"]
         )
         student.bubble.add(student.bubble.content)
@@ -3183,9 +3183,9 @@ class ShowMomentumFormula(IntroduceDeBroglie, TeacherStudentsScene):
         wave_propagation.update_config(rate_func = lambda t : t)
         self.student_says(
             "Physics is \\\\ just weird",
-            bubble_kwargs = {"height" : 2.5, "width" : 3},
+            bubble_config = {"height" : 2.5, "width" : 3},
             target_mode = "shruggie",
-            student_index = 0,
+            index = 0,
             added_anims = [ApplyMethod(full_formula.shift, UP)]
         )
         self.wait()
@@ -3194,7 +3194,7 @@ class ShowMomentumFormula(IntroduceDeBroglie, TeacherStudentsScene):
             ApplyMethod(full_formula.shift, DOWN),
             FadeOut(self.students[0].bubble),
             FadeOut(self.students[0].bubble.content),
-            self.get_student_changes(*3*["pondering"]),
+            self.change_students(*3*["pondering"]),
             self.teacher.change, "pondering",
         )
         self.play(wave_propagation)
@@ -3224,7 +3224,7 @@ class AskPhysicists(PiCreatureScene):
             PiCreatureSays(
                 physy2,
                 "Take the Schrödinger equation \\\\ with $H = \\frac{p^2}{2m}+V(x)$",
-                bubble_kwargs = {"fill_opacity" : 0.9},
+                bubble_config = {"fill_opacity" : 0.9},
             ),
         )
         self.play(
@@ -3232,7 +3232,7 @@ class AskPhysicists(PiCreatureScene):
                 physy1,
                 "Even classically position and \\\\ momentum are conjugate",
                 target_mode = "surprised",
-                bubble_kwargs = {"fill_opacity" : 0.9},
+                bubble_config = {"fill_opacity" : 0.9},
             ),
         )
         self.play(
@@ -3240,7 +3240,7 @@ class AskPhysicists(PiCreatureScene):
                 physy3,
                 "Consider special relativity \\\\ together with $E = hf$",
                 target_mode = "hooray",
-                bubble_kwargs = {"fill_opacity" : 0.9},
+                bubble_config = {"fill_opacity" : 0.9},
             ),
             morty.change, "guilty"
         )
@@ -3693,9 +3693,9 @@ class WhatDoesTheFourierTradeoffTellUs(TeacherStudentsScene):
         self.teacher_says(
             "So! What does \\\\ the Fourier trade-off \\\\ tell us?",
             target_mode = "surprised",
-            bubble_kwargs = {"width" : 4, "height" : 3}
+            bubble_config = {"width" : 4, "height" : 3}
         )
-        self.change_student_modes(*["thinking"]*3)
+        self.play_student_changes(*["thinking"]*3)
         self.wait(4)
 
 class FourierTransformOfWaveFunction(Scene):
@@ -3981,8 +3981,8 @@ class AskAboutUncertainty(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "What does this have \\\\ to do with ``certainty''",
-            bubble_kwargs = {"direction" : LEFT},
-            student_index = 2
+            bubble_config = {"direction" : LEFT},
+            index = 2
         )
         self.play(PiCreatureSays(
             self.students[0], 
@@ -4228,7 +4228,7 @@ class BetterTranslation(TeacherStudentsScene):
         english_term.fade(1)
         self.play(
             english_term.restore,
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.wait()
 
@@ -4268,7 +4268,7 @@ class BetterTranslation(TeacherStudentsScene):
                 translation
             )
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(2)
 
 class ThinkOfHeisenbergUncertainty(PiCreatureScene):
@@ -4337,8 +4337,8 @@ class ThinkOfHeisenbergUncertainty(PiCreatureScene):
 
         self.play(PiCreatureBubbleIntroduction(
             morty, "Heisenberg \\\\ uncertainty \\\\ principle",
-            bubble_class = ThoughtBubble,
-            bubble_kwargs = {"height" : 4, "width" : 4, "direction" : RIGHT},
+            bubble_type = ThoughtBubble,
+            bubble_config = {"height" : 4, "width" : 4, "direction" : RIGHT},
             target_mode = "pondering"
         ))
         self.wait()
@@ -4479,8 +4479,8 @@ class Promotion(PiCreatureScene):
         self.play(
             PiCreatureSays(
                 mathy, "",
-                bubble_kwargs = {"width" : 5},
-                look_at_arg = morty.eyes,
+                bubble_config = {"width" : 5},
+                look_at = morty.eyes,
             ),
             morty.change, "happy",
             aops_logo.shift, 1.5*UP + 0.5*RIGHT

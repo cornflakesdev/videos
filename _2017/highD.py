@@ -504,7 +504,7 @@ class GreatSourceOfMaterial(TeacherStudentsScene):
             "It's a great source \\\\ of material.",
             target_mode = "hooray"
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(3)
 
 class CirclesSpheresSumsSquares(ExternallyAnimatedScene):
@@ -613,16 +613,16 @@ class AskAboutLongerLists(TeacherStudentsScene):
             RemovePiCreatureBubble(self.students[1]),
             self.teacher.change, "raise_right_hand"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["confused"]*3,
-            look_at_arg = self.teacher.get_top() + 2*UP
+            look_at = self.teacher.get_top() + 2*UP
         )
         self.play(self.teacher.look, UP)
         self.wait(5)
         self.student_says(
             "I...don't see it.",
             target_mode = "maybe",
-            student_index = 0
+            index = 0
         )
         self.wait(3)
 
@@ -1469,9 +1469,9 @@ class FourDCase(SliderScene, TeacherStudentsScene):
             Animation(self.sliders),
             self.teacher.change, "raise_right_hand",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = self.sliders
+            look_at = self.sliders
         )
         self.wait(4)
 
@@ -1489,9 +1489,9 @@ class FourDCase(SliderScene, TeacherStudentsScene):
             ShowCreation(arrow),
             dial.set_color, arrow.get_color()
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "erm", "confused", "hooray",
-            look_at_arg = self.sliders,
+            look_at = self.sliders,
             added_anims = [self.teacher.change, "plain"]
         )
         self.wait(5)
@@ -1503,12 +1503,12 @@ class FourDCase(SliderScene, TeacherStudentsScene):
         self.student_says(
             "Okay...now what?",
             target_mode = "raise_left_hand",
-            student_index = 0,
+            index = 0,
             added_anims = [self.teacher.change, "plain"]
         )
-        self.change_student_modes(
+        self.play_student_changes(
             None, "pondering", "pondering",
-            look_at_arg = self.students[0].bubble,
+            look_at = self.students[0].bubble,
         )
         self.wait(4)
         self.play(RemovePiCreatureBubble(self.students[0]))
@@ -1764,7 +1764,7 @@ class ShowDistanceFormula(TeacherStudentsScene):
             self.teacher.change, "raise_right_hand",
         )
         self.wait(3)
-        self.student_says("Why?", student_index = 0)
+        self.student_says("Why?", index = 0)
         self.play(self.teacher.change, "thinking")
         self.wait(3)
 
@@ -1872,12 +1872,12 @@ class AskAboutHigherDimensions(TeacherStudentsScene):
         self.teacher_says(
             "What happens for \\\\ higher dimensions?"
         )
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(2)
         self.student_thinks(
             "$\\sqrt{N} - 1$",
             target_mode = "happy",
-            student_index = 1
+            index = 1
         )
         self.wait()
         pi = self.students[1]
@@ -2239,7 +2239,7 @@ class MentionComparisonToZeroPointFive(TeacherStudentsScene):
             "be surprisingly useful!",
             target_mode = "hooray"
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(3)
 
 class ThreeDBoxExampleWithSliders(SliderScene):
@@ -2911,7 +2911,7 @@ class SkipAheadTo10(TeacherStudentsScene):
             "Let's skip ahead \\\\ to 10 dimensions",
             target_mode = "hooray"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "pleading", "confused", "horrified"
         )
         self.wait(3)
@@ -3148,7 +3148,7 @@ class TenDCornerIsVeryFarAway(TenDBoxExampleWithSliders):
 class InnerRadiusIsUnbounded(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Inner radius \\\\ is unbounded")
-        self.change_student_modes(*["erm"]*3)
+        self.play_student_changes(*["erm"]*3)
         self.wait(3)
 
 class ProportionOfSphereInBox(GraphScene):
@@ -3251,13 +3251,13 @@ class QuestionsFromStudents(TeacherStudentsScene):
         self.wait(2)
         self.student_says(
             "How do you think \\\\ about volume?",
-            student_index = 0,
+            index = 0,
             content_introduction_class = FadeIn,
         )
         self.wait()
         self.student_says(
             "How do cubes work?",
-            student_index = 2,
+            index = 2,
             run_time = 2,
         )
         self.wait(2)
@@ -3357,7 +3357,7 @@ class Skeptic(TeacherStudentsScene, SliderScene):
 
         self.student_says(
             analytic_thought,
-            student_index = 0,
+            index = 0,
             target_mode = "sassy",
             added_anims = [self.teacher.change, "guilty"]
         )
@@ -3373,7 +3373,7 @@ class Skeptic(TeacherStudentsScene, SliderScene):
         self.wait(4)
         bubble = self.teacher.get_bubble(
             "It's much \\\\ more playful!",
-            bubble_class = SpeechBubble
+            bubble_type = SpeechBubble
         )
         bubble.resize_to_content()
         VGroup(bubble, bubble.content).next_to(self.teacher, UP+LEFT)
@@ -3386,7 +3386,7 @@ class Skeptic(TeacherStudentsScene, SliderScene):
         self.play(
             RemovePiCreatureBubble(
                 self.teacher, target_mode = "raise_right_hand",
-                look_at_arg = self.sliders
+                look_at = self.sliders
             ),
             *[
                 ApplyMethod(pi.change, "pondering")

@@ -1446,7 +1446,7 @@ class NotANeuroScientist(TeacherStudentsScene):
             self.teacher.change, "guilty", words,
             run_time = 1,
         )
-        self.change_student_modes(*3*["sassy"])
+        self.play_student_changes(*3*["sassy"])
         self.play(
             ShowCreation(rect),
             Write(no_claim_words, run_time = 1),
@@ -1837,9 +1837,9 @@ class WatchPreviousScene(TeacherStudentsScene):
 
         self.play(
             self.teacher.change, "raise_right_hand", screen,
-            self.get_student_changes(
+            self.change_students(
                 *["thinking"]*3,
-                look_at_arg = screen
+                look_at = screen
             ),
             ShowCreation(screen)
         )
@@ -2027,14 +2027,14 @@ class SwimmingInTerms(TeacherStudentsScene):
         terms.to_edge(UP)
         self.play(
             LaggedStartMap(FadeIn, terms),
-            self.get_student_changes(*["horrified"]*3)
+            self.change_students(*["horrified"]*3)
         )
         self.wait()
         self.play(
             terms[-1].next_to, self.teacher.get_corner(UP+LEFT), UP,
             FadeOut(VGroup(*terms[:-1])),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.wait()
 
@@ -2063,19 +2063,19 @@ class CannotFollowCode(TeacherStudentsScene):
         self.student_says(
             "I...er...can't follow\\\\ that code at all.",
             target_mode = "confused",
-            student_index = 1
+            index = 1
         )
         self.play(self.students[1].change, "sad")
-        self.change_student_modes(
+        self.play_student_changes(
             "angry", "sad", "angry",
-            look_at_arg = self.teacher.eyes
+            look_at = self.teacher.eyes
         )
         self.play(self.teacher.change, "hesitant")
         self.wait(2)
         self.teacher_says(
             "Let's get to the \\\\ calculus then",
             target_mode = "hooray",
-            added_anims = [self.get_student_changes(*3*["plain"])],
+            added_anims = [self.change_students(*3*["plain"])],
             run_time = 1
         )
         self.wait(2)
@@ -3627,7 +3627,7 @@ class IsntThatOverSimplified(TeacherStudentsScene):
             target_mode = "raise_right_hand",
             run_time = 1
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "raise_right_hand", "pondering"
         )
         self.wait()
@@ -4208,7 +4208,7 @@ class PatYourselfOnTheBack(TeacherStudentsScene):
             "Pat yourself on \\\\ the back!",
             target_mode = "hooray"
         )
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(3)
 
 class ThatsALotToThinkAbout(TeacherStudentsScene):
@@ -4217,7 +4217,7 @@ class ThatsALotToThinkAbout(TeacherStudentsScene):
             "That's a lot to \\\\ think about!",
             target_mode = "surprised"
         )
-        self.change_student_modes(*["thinking"]*3)
+        self.play_student_changes(*["thinking"]*3)
         self.wait(4)
 
 class LayersOfComplexity(Scene):

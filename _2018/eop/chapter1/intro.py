@@ -34,9 +34,9 @@ class Introduction(TeacherStudentsScene):
         
         self.wait(5)
         
-        self.change_student_modes(
+        self.play_student_changes(
             "confused", "frustrated", "dejected",
-            look_at_arg = UP + 2 * RIGHT
+            look_at = UP + 2 * RIGHT
         )
 
         self.wait()

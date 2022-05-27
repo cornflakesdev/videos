@@ -13,17 +13,17 @@ class HappyHolidays(TeacherStudentsScene):
             self.get_hat, self.pi_creatures
         )))
         self.add(self.get_snowflakes())
-        self.change_student_modes(
+        self.play_student_changes(
             *["hooray"]*3,
-            look_at_arg = FRAME_Y_RADIUS*UP,
+            look_at = FRAME_Y_RADIUS*UP,
             added_anims = [self.teacher.change, "hooray"]
         )
         self.play(LaggedStartMap(
             DrawBorderThenFill, hats
         ), Animation(self.pi_creatures))
-        self.change_student_modes(
+        self.play_student_changes(
             "happy", "wave_2", "wave_1",
-            look_at_arg = FRAME_Y_RADIUS*UP,
+            look_at = FRAME_Y_RADIUS*UP,
         )
         self.look_at(self.teacher.get_corner(UP+LEFT))
         self.wait(2)
@@ -334,8 +334,8 @@ class AboutToyPuzzles(UtilitiesPuzzleScene, TeacherStudentsScene, ThreeDScene):
             self.teacher.change, "raise_right_hand", UP+LEFT,
             LaggedStartMap(FadeIn, self.students)
         )
-        self.change_student_modes(
-            *["pondering"]*3, look_at_arg = everything
+        self.play_student_changes(
+            *["pondering"]*3, look_at = everything
         )
         self.wait(5)
 
@@ -675,7 +675,7 @@ class TwoKindsOfViewers(PiCreatureScene, UtilitiesPuzzleScene):
         self.wait()
         self.pi_creature_thinks(
             pi1, "",
-            bubble_kwargs = {"width" : 3, "height" : 2},
+            bubble_config = {"width" : 3, "height" : 2},
             target_mode = "thinking"
         )
         self.play(pi2.change, "confused", eulers)
@@ -1276,18 +1276,18 @@ class ShowRule(TeacherStudentsScene):
             Animation(rule),
             self.teacher.change, "raise_right_hand"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["confused"]*3,
-            look_at_arg = rule
+            look_at = rule
         )
         self.wait(2)
         self.play(
             Write(nine_total),
             self.teacher.change, "happy",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["thinking"]*3, 
-            look_at_arg = rule
+            look_at = rule
         )
         self.wait(3)
 
@@ -1916,7 +1916,7 @@ class YouGaveFriendsAnImpossiblePuzzle(TeacherStudentsScene):
             "You gave friends \\\\ an impossible puzzle?",
             target_mode = "sassy",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "angry", "sassy", "angry",
             added_anims = [self.teacher.change, "happy"]
         )
@@ -1926,13 +1926,13 @@ class FunnyStory(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Funny story", target_mode = "hooray")
         self.wait()
-        self.change_student_modes(
+        self.play_student_changes(
             *["happy"]*3,
             added_anims = [RemovePiCreatureBubble(
                 self.teacher,
                 target_mode = "raise_right_hand"
             )],
-            look_at_arg = UP+2*RIGHT
+            look_at = UP+2*RIGHT
         )
         self.wait(5)
 
@@ -1960,7 +1960,7 @@ class QuestionWrapper(Scene):
 class Homework(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Consider this \\\\ homework")
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(2)
         self.student_says(
             "$V-E+F=0$ on \\\\ a torus!",
@@ -1968,7 +1968,7 @@ class Homework(TeacherStudentsScene):
         )
         self.wait()
         self.teacher_says("Not good enough!", target_mode = "surprised")
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.wait(2)
 
 class WantToLearnMore(Scene):

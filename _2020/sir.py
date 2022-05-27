@@ -2174,9 +2174,9 @@ class WeDontHaveThat(TeacherStudentsScene):
             target_mode="angry",
             added_anims=[self.teacher.change, "guilty"]
         )
-        self.change_all_student_modes(
+        self.play_all_student_changes(
             "angry",
-            look_at_arg=self.teacher.eyes
+            look_at=self.teacher.eyes
         )
         self.wait(5)
 
@@ -2318,11 +2318,11 @@ class ThatsNotHowIBehave(TeacherStudentsScene):
         self.student_says(
             "That's...not\\\\how I behave.",
             target_mode="sassy",
-            look_at_arg=self.screen,
+            look_at=self.screen,
         )
         self.play(
             self.teacher.change, "guilty",
-            self.get_student_changes("erm", "erm", "sassy")
+            self.change_students("erm", "erm", "sassy")
         )
         self.look_at(self.screen)
         self.wait(20)
@@ -2414,9 +2414,9 @@ class SARS2002(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand",
             FadeIn(image, DOWN, run_time=2),
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "thinking", "pondering",
-                look_at_arg=image,
+                look_at=image,
             )
         )
         self.play(
@@ -2429,11 +2429,11 @@ class SARS2002(TeacherStudentsScene):
                 lambda m, a: m.set_opacity(a),
             ),
             ChangeDecimalToValue(n_cases[0], 8098),
-            self.get_student_changes(look_at_arg=n_cases),
+            self.change_students(look_at=n_cases),
         )
         self.wait()
-        self.change_all_student_modes(
-            "thinking", look_at_arg=n_cases,
+        self.play_all_student_changes(
+            "thinking", look_at=n_cases,
         )
         self.play(self.teacher.change, "tease")
         self.wait(6)
@@ -2911,16 +2911,16 @@ class WhyChooseJustOne(TeacherStudentsScene):
             run_time=1,
         )
         self.play(
-            self.get_student_changes(
+            self.change_students(
                 "confused", "confused", "sassy",
             ),
         )
         self.wait(2)
         self.teacher_says(
             "For science!", target_mode="hooray",
-            look_at_arg=self.students[2].eyes,
+            look_at=self.students[2].eyes,
         )
-        self.change_student_modes("hesitant", "hesitant", "hesitant")
+        self.play_student_changes("hesitant", "hesitant", "hesitant")
         self.wait(3)
 
         self.embed()

@@ -602,11 +602,11 @@ class LetsLookAtOneAnswer(TeacherStudentsScene):
         self.teacher_says(
             "Let me show you\\\\one answer.",
             added_anims=[
-                self.get_student_changes("pondering", "thinking", "pondering")
+                self.change_students("pondering", "thinking", "pondering")
             ]
         )
         self.look_at(self.screen)
-        self.change_all_student_modes("thinking", look_at_arg=self.screen)
+        self.play_all_student_changes("thinking", look_at=self.screen)
         self.wait(4)
 
 
@@ -923,7 +923,7 @@ class AskWhy(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "Wait...why?",
-            look_at_arg=self.screen,
+            look_at=self.screen,
         )
         self.play(
             self.students[0].change, "confused", self.screen,
@@ -939,7 +939,7 @@ class AskWhy(TeacherStudentsScene):
         )
         self.wait(2)
         self.teacher_says("Let's dive in!", target_mode="hooray")
-        self.change_all_student_modes("hooray")
+        self.play_all_student_changes("hooray")
         self.wait(3)
 
 
@@ -2063,9 +2063,9 @@ class ComplainAboutSimplisticModel(TeacherStudentsScene):
         self.add(axes)
         self.play(
             self.teacher.change, "raise_right_hand", axes,
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "erm", "sassy",
-                look_at_arg=axes,
+                look_at=axes,
             ),
             ShowCreation(
                 axes.graph,
@@ -3609,9 +3609,9 @@ class StateNeedForBayesRule(TeacherStudentsScene):
                 for v_line in v_lines
             ]
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "thinking", "pondering",
-            look_at_arg=v_lines,
+            look_at=v_lines,
         )
         self.wait(2)
 
@@ -3620,9 +3620,9 @@ class StateNeedForBayesRule(TeacherStudentsScene):
             added_anims=[
                 FadeOut(plot, LEFT),
                 FadeOut(v_lines, LEFT),
-                self.get_student_changes(
+                self.change_students(
                     "erm", "erm", "erm",
-                    look_at_arg=self.teacher.eyes,
+                    look_at=self.teacher.eyes,
                 )
             ]
         )

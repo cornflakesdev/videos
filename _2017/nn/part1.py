@@ -645,15 +645,15 @@ class LayOutPlan(TeacherStudentsScene, NetworkScene):
         self.play(
             words[0].restore,
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes("pondering", "erm", "sassy")
+            self.change_students("pondering", "erm", "sassy")
         )
         self.play(
             words[0].shift, MED_LARGE_BUFF*UP,
             FadeIn(words[1]),
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = words
+            look_at = words
         )
         self.play(words.to_corner, UP+RIGHT)
 
@@ -668,7 +668,7 @@ class LayOutPlan(TeacherStudentsScene, NetworkScene):
                 VGroup(self.words[1].copy()),
                 network_mob.layers
             ),
-            self.get_student_changes(
+            self.change_students(
                 *["confused"]*3,
                 lag_ratio = 0
             ),
@@ -705,8 +705,8 @@ class LayOutPlan(TeacherStudentsScene, NetworkScene):
     def ask_about_layers(self):
         self.student_says(
             "Why the layers?",
-            student_index = 2,
-            bubble_kwargs = {"direction" : LEFT}
+            index = 2,
+            bubble_config = {"direction" : LEFT}
         )
         self.wait()
         self.play(RemovePiCreatureBubble(self.students[2]))
@@ -775,7 +775,7 @@ class LayOutPlan(TeacherStudentsScene, NetworkScene):
         self.play(
             DrawBorderThenFill(videos[0]),
             FadeIn(structure),
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.wait()
         self.play(DrawBorderThenFill(videos[1]))
@@ -923,7 +923,7 @@ class MoreAThanI(TeacherStudentsScene):
             "More \\\\ A than I",
             target_mode = "hesitant"
         )
-        self.change_student_modes("sad", "erm", "tired")
+        self.play_student_changes("sad", "erm", "tired")
         self.wait(2)
 
 class BreakDownName(Scene):
@@ -1374,12 +1374,12 @@ class DiscussChoiceForHiddenLayers(TeacherStudentsScene):
         )
         self.wait()
         self.play(self.teacher.change, "shruggie")
-        self.change_student_modes("erm", "confused", "sassy")
+        self.play_student_changes("erm", "confused", "sassy")
         self.wait()
         self.student_says(
             "Why 2 \\\\ layers?",
-            student_index = 1,
-            bubble_kwargs = {"direction" : RIGHT},
+            index = 1,
+            bubble_config = {"direction" : RIGHT},
             run_time = 1,
             target_mode = "raise_left_hand",
         )
@@ -1387,7 +1387,7 @@ class DiscussChoiceForHiddenLayers(TeacherStudentsScene):
         self.wait()
         self.student_says(
             "Why 16?",
-            student_index = 0,
+            index = 0,
             run_time = 1,
         )
         self.play(neurons_anim, run_time = 3)
@@ -1440,13 +1440,13 @@ class AskAboutPropogationAndTraining(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "How does one layer \\\\ influence the next?",
-            student_index = 0,
+            index = 0,
             run_time = 1
         )
         self.wait()
         self.student_says(
             "How does \\\\ training work?",
-            student_index = 2,
+            index = 2,
             run_time = 1
         )
         self.wait(3)
@@ -2141,7 +2141,7 @@ class ManyTasksBreakDownLikeThis(TeacherStudentsScene):
             "Many", "recognition", "tasks\\\\",
             "break down like this"
         )
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait()
         content = self.teacher.bubble.content
         pre_word = content[1]
@@ -3328,7 +3328,7 @@ class EvenWhenItWorks(TeacherStudentsScene):
             "Even when it works,\\\\",
             "dig into why."
         )
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(7)
 
 class IntroduceWeightMatrix(NetworkScene):
@@ -4133,7 +4133,7 @@ class ComplicationIsReassuring(TeacherStudentsScene):
         self.student_says(
             "It kind of has to \\\\ be complicated, right?",
             target_mode = "speaking",
-            student_index = 0
+            index = 0
         )
         self.play(self.teacher.change, "happy")
         self.wait(4)

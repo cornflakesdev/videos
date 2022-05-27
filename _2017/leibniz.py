@@ -278,7 +278,7 @@ class ShowSum(TeacherStudentsScene):
 
     def say_words(self):
         self.teacher_says("This won't be easy")
-        self.change_student_modes(
+        self.play_student_changes(
             "hooray", "sassy", "angry"
         )
         self.wait(2)
@@ -335,9 +335,9 @@ class ShowSum(TeacherStudentsScene):
         last_arrows = it.chain([None], arrows)
         last_fading_terms = it.chain([None], fading_terms)
 
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = line,
+            look_at = line,
             added_anims = [
                 FadeIn(VGroup(line, dot)),
                 FadeIn(lhs),
@@ -375,7 +375,7 @@ class ShowSum(TeacherStudentsScene):
         )
         self.play(ShowCreation(sum_arrow))
         self.wait()
-        self.change_student_modes("erm", "confused", "maybe")
+        self.play_student_changes("erm", "confused", "maybe")
         self.play(self.teacher.change_mode, "happy")
         self.wait(2)
 
@@ -429,7 +429,7 @@ class ShowCalculus(PiCreatureScene):
         self.wait()
         self.pi_creature_says(
             "Where's the \\\\ circle?",
-            bubble_kwargs = {"width" : 4, "height" : 3},
+            bubble_config = {"width" : 4, "height" : 3},
             target_mode = "maybe"
         )
         self.look_at(rhs_group[0])
@@ -530,7 +530,7 @@ class Outline(PiCreatureScene):
         question.next_to(self.pi_creature.body, LEFT, aligned_edge = UP)
         self.think(
             "Who am I really?",
-            look_at_arg = question,
+            look_at = question,
             added_anims = [
                 FadeIn(question)
             ]
@@ -905,7 +905,7 @@ class SoYouPlay(TeacherStudentsScene):
             "So you play!",
             run_time = 2
         )
-        self.change_student_modes("happy", "thinking", "hesitant")
+        self.play_student_changes("happy", "thinking", "hesitant")
         self.wait()
         self.look_at(Dot().to_corner(UP+LEFT))
         self.wait(3)
@@ -1327,7 +1327,7 @@ class Given2DThinkComplex(TeacherStudentsScene):
         plane.to_corner(UP+LEFT)
 
         self.teacher_says(tex)
-        self.change_student_modes("pondering", "confused", "erm")
+        self.play_student_changes("pondering", "confused", "erm")
         self.wait()
         self.play(
             Write(plane),
@@ -1336,9 +1336,9 @@ class Given2DThinkComplex(TeacherStudentsScene):
                 target_mode = "raise_right_hand"
             )
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["thinking"]*3,
-            look_at_arg = plane
+            look_at = plane
         )
         self.wait(3)
 
@@ -1526,7 +1526,7 @@ class IntroduceComplexConjugate(LatticePointScene):
             PiCreatureSays(
                 morty, "Now it's a \\\\ factoring problem!",
                 target_mode = "hooray",
-                bubble_kwargs = {"width" : 5, "height" : 3}
+                bubble_config = {"width" : 5, "height" : 3}
             )
         )
         self.play(
@@ -1614,7 +1614,7 @@ class IntroduceComplexConjugate(LatticePointScene):
             morty, "More geometry!",
             target_mode = "hooray",
             run_time = 2,
-            bubble_kwargs = {"height" : 2, "width" : 4}
+            bubble_config = {"height" : 2, "width" : 4}
         ))
         self.play(Blink(randy))
         self.play(
@@ -1624,7 +1624,7 @@ class IntroduceComplexConjugate(LatticePointScene):
             PiCreatureSays(
                 randy, "???",
                 target_mode = "maybe",
-                bubble_kwargs = {"width" : 3, "height" : 2}
+                bubble_config = {"width" : 3, "height" : 2}
             )
         )
         self.play(
@@ -1902,9 +1902,9 @@ class FactorOrdinaryNumber(TeacherStudentsScene):
             Write(VGroup(*equation[1:])),
             Write(title[1])
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = equation,
+            look_at = equation,
             added_anims = [self.teacher.change_mode, "happy"]
         )
         self.wait()
@@ -1919,9 +1919,9 @@ class FactorOrdinaryNumber(TeacherStudentsScene):
                 anims += [FadeIn(alt_rhs)]
             self.play(*anims)
             if alt_rhs is alt_rhs_list[-2]:
-                self.change_student_modes(
+                self.play_student_changes(
                     *["sassy"]*3,
-                    look_at_arg = alt_rhs,
+                    look_at = alt_rhs,
                     added_anims = [Write(title[0])]
                 )
             self.wait(2)
@@ -1932,10 +1932,10 @@ class FactorOrdinaryNumber(TeacherStudentsScene):
             PiCreatureSays(
                 self.teacher,
                 "It's similar for \\\\ Gaussian integers",
-                bubble_kwargs = {"height" : 3.5}
+                bubble_config = {"height" : 3.5}
             )
         )
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(3)
 
 class IntroduceGaussianPrimes(LatticePointScene, PiCreatureScene):
@@ -2061,7 +2061,7 @@ class IntroduceGaussianPrimes(LatticePointScene, PiCreatureScene):
         self.play(FadeIn(morty))
         self.play(PiCreatureSays(
             morty, "\\emph{Almost} unique",
-            bubble_kwargs = {"height" : 2, "width" : 5},
+            bubble_config = {"height" : 2, "width" : 5},
         ))
         self.wait()
         self.play(RemovePiCreatureBubble(morty, target_mode = "pondering"))
@@ -2307,10 +2307,10 @@ class FactorizationPattern(Scene):
         self.play(FadeIn(randy))
         self.play(PiCreatureBubbleIntroduction(
             randy, "Wait...why?",
-            bubble_class = ThoughtBubble,
-            bubble_kwargs = {"height" : 2, "width" : 3},
+            bubble_type = ThoughtBubble,
+            bubble_config = {"height" : 2, "width" : 3},
             target_mode = "confused",
-            look_at_arg = self.number_line,
+            look_at = self.number_line,
         ))
         self.play(Blink(randy))
         self.wait()
@@ -2821,7 +2821,7 @@ class LooksLikeYoureMissingSome(TeacherStudentsScene):
         self.student_says(
             "Looks like you're \\\\ missing a few",
             target_mode = "sassy",
-            student_index = 0,
+            index = 0,
         )
         self.play(self.teacher.change, "guilty")
         self.wait(3)
@@ -3322,19 +3322,19 @@ class SummarizeCountingRule(Show125Circle):
         self.play(FadeIn(randy))
         self.play(PiCreatureBubbleIntroduction(
             randy, "What about \\\\ factors of 2?",
-            bubble_class = ThoughtBubble,
-            bubble_kwargs = {"height" : 3, "width" : 3},
+            bubble_type = ThoughtBubble,
+            bubble_config = {"height" : 3, "width" : 3},
             target_mode = "confused",
-            look_at_arg = self.count_words
+            look_at = self.count_words
         ))
         self.play(Blink(randy))
         self.wait()
 
 class ThisIsTheHardestPart(TeacherStudentsScene):
     def construct(self):
-        self.change_student_modes("horrified", "confused", "pleading")
+        self.play_student_changes("horrified", "confused", "pleading")
         self.teacher_says("This is the \\\\ hardest part")
-        self.change_student_modes("thinking", "happy", "pondering")
+        self.play_student_changes("thinking", "happy", "pondering")
         self.wait(2)
 
 class RecipeFor10(IntroduceRecipe):
@@ -3392,7 +3392,7 @@ class FactorsOfTwoNeitherHelpNorHurt(TeacherStudentsScene):
         )
         words.set_color_by_tex("2", YELLOW)
         self.teacher_says(words)
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait(3)
 
 class EffectOfPowersOfTwo(LatticePointScene):
@@ -3435,7 +3435,7 @@ class NumberTheoryAtItsBest(TeacherStudentsScene):
             target_mode = "hooray",
             run_time = 2,
         )
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(3)
 
 class IntroduceChi(FactorizationPattern):
@@ -3562,7 +3562,7 @@ class IntroduceChi(FactorizationPattern):
 
         self.play(PiCreatureSays(
             morty, "$\\chi$ is ``multiplicative''",
-            bubble_kwargs = {"height" : 2.5, "width" : 5}
+            bubble_config = {"height" : 2.5, "width" : 5}
         ))
         self.play(Blink(morty))
         self.morty = morty
@@ -3861,7 +3861,7 @@ class WriteCountingRuleWithChi(SummarizeCountingRule):
 class WeAreGettingClose(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("We're getting close...")
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(2)
 
 class ExpandCountWith45(SummarizeCountingRule):
@@ -4681,9 +4681,9 @@ class IntersectionOfTwoFields(TeacherStudentsScene):
             Write(mid_words),
             self.teacher.change, "raise_right_hand"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["thinking"]*3,
-            look_at_arg = mid_words
+            look_at = mid_words
         )
         self.wait(3)
 

@@ -1041,7 +1041,7 @@ class WhatAreWeDoingHere(TeacherStudentsScene):
         self.student_says(
             "Wait, what are we\\\\doing here then?",
             target_mode="sassy",
-            added_anims=[self.get_student_changes("hesitant", "angry", "sassy")],
+            added_anims=[self.change_students("hesitant", "angry", "sassy")],
             run_time=2
         )
         self.play(self.teacher.change, "tease")
@@ -1052,16 +1052,16 @@ class HowCanWeVisualizeSolutions(TeacherStudentsScene):
     def construct(self):
         self.teacher_says(
             "How can we\\\\visualize solutions",
-            bubble_kwargs={
+            bubble_config={
                 "height": 3,
                 "width": 4,
                 "fill_opacity": 0,
             },
-            added_anims=[self.get_student_changes("pondering", "thinking", "pondering")]
+            added_anims=[self.change_students("pondering", "thinking", "pondering")]
         )
         self.look_at(self.screen),
         self.wait(1)
-        self.change_student_modes("thinking", "erm", "confused")
+        self.play_student_changes("thinking", "erm", "confused")
         self.wait(5)
 
 
@@ -1462,13 +1462,13 @@ class IGotThis(TeacherStudentsScene):
         self.student_says(
             "Pssh, I got this",
             target_mode="tease",
-            look_at_arg=self.screen,
+            look_at=self.screen,
             added_anims=[self.teacher.change, "happy", self.screen],
             run_time=2,
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "pondering",
-            look_at_arg=self.screen
+            look_at=self.screen
         )
         self.wait(6)
 
@@ -3495,20 +3495,20 @@ class TryTheProofYourself(TeacherStudentsScene):
         self.teacher_says(
             "Can you predict\\\\the proof?",
             target_mode="hooray",
-            bubble_kwargs={
+            bubble_config={
                 "height": 3,
                 "width": 3,
             },
         )
         self.teacher.bubble.set_fill(opacity=0)
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "thinking", "confused",
-            look_at_arg=self.screen,
+            look_at=self.screen,
         )
         self.wait(3)
-        self.change_student_modes("thinking", "pondering", "erm", look_at_arg=self.screen)
+        self.play_student_changes("thinking", "pondering", "erm", look_at=self.screen)
         self.wait(4)
-        self.change_student_modes("tease", "pondering", "thinking", look_at_arg=self.screen)
+        self.play_student_changes("tease", "pondering", "thinking", look_at=self.screen)
         self.wait(5)
 
 

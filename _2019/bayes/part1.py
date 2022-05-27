@@ -1423,9 +1423,9 @@ class ComplainAboutNotKnowingTheStats(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "Are people expected\\\\to know that?",
-            student_index=2
+            index=2
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "sassy", "sassy",
         )
         self.play(self.teacher.change, "hesitant")
@@ -1433,11 +1433,11 @@ class ComplainAboutNotKnowingTheStats(TeacherStudentsScene):
         self.wait(3)
         self.teacher_says(
             "No, but did you\\\\think to estimate it?",
-            bubble_kwargs={"width": 4.5, "height": 3.5},
+            bubble_config={"width": 4.5, "height": 3.5},
         )
-        self.change_all_student_modes("guilty")
+        self.play_all_student_changes("guilty")
         self.wait(2)
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.wait(3)
 
 
@@ -3277,9 +3277,9 @@ class AskAboutWhenProbabilityIsIntuitive(TeacherStudentsScene):
 
         self.play(
             self.teacher.change, "speaking",
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "sassy", "happy",
-                look_at_arg=self.screen,
+                look_at=self.screen,
             )
         )
         self.wait(2)
@@ -3287,7 +3287,7 @@ class AskAboutWhenProbabilityIsIntuitive(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand",
             FadeIn(words, DOWN),
-            self.get_student_changes("erm", "pondering", "confused")
+            self.change_students("erm", "pondering", "confused")
         )
         self.wait(2)
         self.play(
@@ -3295,9 +3295,9 @@ class AskAboutWhenProbabilityIsIntuitive(TeacherStudentsScene):
             words.center,
             words.to_edge, UP,
             self.teacher.change, "pondering", 3 * UP,
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "thinking", "thinking",
-                look_at_arg=3 * UP,
+                look_at=3 * UP,
             )
         )
         self.wait(6)

@@ -732,55 +732,55 @@ class AskAboutAveraging(TeacherStudentsScene):
         sts = self.students
         tch = self.teacher
 
-        self.change_student_modes(
+        self.play_student_changes(
             "maybe", "thinking", "erm",
-            look_at_arg=self.screen,
-            added_anims=[self.teacher.animate.change("raise_right_hand", self.screen)]
+            look_at=self.screen,
+            added_anims=[self.teacher.change("raise_right_hand", self.screen)]
         )
         self.wait(3)
         self.play(
             PiCreatureBubbleIntroduction(
                 sts[2], TexText("What does that\\\\mean, exactly?"),
                 target_mode="hesitant",
-                look_at_arg=self.screen,
-                bubble_kwargs={"direction": LEFT}
+                look_at=self.screen,
+                bubble_config={"direction": LEFT}
             ),
             LaggedStart(
-                sts[0].animate.change("confused", self.screen),
-                sts[1].animate.change("pondering", self.screen),
-                tch.animate.change("tease", sts[2].eyes),
+                sts[0].change("confused", self.screen),
+                sts[1].change("pondering", self.screen),
+                tch.change("tease", sts[2].eyes),
             )
         )
         self.wait(4)
         self.student_says(
             "Can we do an experiment?",
             target_mode="raise_left_hand",
-            student_index=1,
+            index=1,
         )
         self.wait(4)
         self.student_says(
             TexText("But what defines a\\\\``random'' toss?"),
-            look_at_arg=self.screen,
+            look_at=self.screen,
             target_mode="hesitant",
-            student_index=2,
+            index=2,
             added_anims=[
-                self.teacher.animate.change("guilty"),
-                self.students[0].animate.change("erm"),
+                self.teacher.change("guilty"),
+                self.students[0].change("erm"),
             ]
         )
         self.wait(4)
         self.play(LaggedStart(
-            self.students[0].animate.change("pondering", self.screen),
-            self.students[1].animate.change("maybe", self.screen),
-            self.teacher.animate.change("tease", self.screen),
+            self.students[0].change("pondering", self.screen),
+            self.students[1].change("maybe", self.screen),
+            self.teacher.change("tease", self.screen),
         ))
         self.wait(2)
         self.teacher_says(TexText("Hold off until\\\\the end"))
         self.wait(3)
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "tease", "pondering",
-            look_at_arg=self.screen,
-            added_anims=[self.teacher.animate.change("tease", self.students)]
+            look_at=self.screen,
+            added_anims=[self.teacher.change("tease", self.students)]
         )
         self.wait(4)
 
@@ -931,9 +931,9 @@ class PauseAndPonder(TeacherStudentsScene):
 
         self.teacher_says(
             TexText("The goal is\\\\not speed."),
-            added_anims=[self.get_student_changes(
+            added_anims=[self.change_students(
                 "tease", "well", "pondering",
-                look_at_arg=self.screen
+                look_at=self.screen
             )]
         )
         self.wait(2)
@@ -942,22 +942,22 @@ class PauseAndPonder(TeacherStudentsScene):
             PiCreatureBubbleIntroduction(
                 self.students[2],
                 Lightbulb(),
-                bubble_class=ThoughtBubble,
+                bubble_type=ThoughtBubble,
                 bubble_creation_class=lambda m: FadeIn(m, lag_ratio=0.1),
-                bubble_kwargs=dict(
+                bubble_config=dict(
                     height=3,
                     width=3,
                     direction=LEFT,
                 ),
                 target_mode="thinking",
-                look_at_arg=self.screen,
+                look_at=self.screen,
             )
         )
         self.wait(3)
         self.teacher_says(
             "Pause and ponder!",
             target_mode="well",
-            added_anims=[self.get_student_changes(
+            added_anims=[self.change_students(
                 "pondering", "tease", "thinking"
             )],
             run_time=1
@@ -1584,11 +1584,11 @@ class NotQuiteRight(TeacherStudentsScene):
         self.teacher_says(
             "Not quite right...",
             target_mode="hesitant",
-            bubble_kwargs={"height": 3, "width": 4},
+            bubble_config={"height": 3, "width": 4},
             added_anims=[
-                self.get_student_changes(
+                self.change_students(
                     "pondering", "thinking", "erm",
-                    look_at_arg=self.screen,
+                    look_at=self.screen,
                 )
             ]
         )
@@ -2199,22 +2199,22 @@ class IsntThatObvious(TeacherStudentsScene):
         self.remove(self.background)
         self.student_says(
             TexText("Isn't that obvious?"),
-            bubble_kwargs={
+            bubble_config={
                 "height": 3,
                 "width": 4,
                 "direction": LEFT,
             },
             target_mode="angry",
-            look_at_arg=self.screen,
+            look_at=self.screen,
             added_anims=[LaggedStart(
-                self.teacher.animate.change("guilty"),
-                self.students[0].animate.change("pondering", self.screen),
-                self.students[1].animate.change("erm", self.screen),
+                self.teacher.change("guilty"),
+                self.students[0].change("pondering", self.screen),
+                self.students[1].change("erm", self.screen),
             )]
         )
         self.wait(2)
         self.play(
-            self.students[0].animate.change("hesitant"),
+            self.students[0].change("hesitant"),
         )
         self.wait(2)
 
@@ -3836,10 +3836,10 @@ class ThreeCamps(TeacherStudentsScene):
 
         self.play(
             LaggedStart(*(
-                student.animate.change("pondering", image.target)
+                student.change("pondering", image.target)
                 for student in students
             ), run_time=2, lag_ratio=0.2),
-            teacher.animate.change("tease")
+            teacher.change("tease")
         )
         self.wait()
 
@@ -3855,13 +3855,13 @@ class ThreeCamps(TeacherStudentsScene):
             self.play(
                 PiCreatureSays(
                     student, phrase, target_mode=mode,
-                    look_at_arg=image,
-                    bubble_kwargs={
+                    look_at=image,
+                    bubble_config={
                         "direction": LEFT,
                         "width": 3,
                         "height": height,
                     },
-                    bubble_class=ThoughtBubble,
+                    bubble_type=ThoughtBubble,
                     run_time=2
                 )
             )
@@ -3883,11 +3883,11 @@ class ThreeCamps(TeacherStudentsScene):
                 for student in reversed(students)
             )),
             LaggedStart(*(
-                student.animate.change("pondering", integral)
+                student.change("pondering", integral)
                 for student in students
             )),
             FadeIn(integral, UP),
-            teacher.animate.change("raise_right_hand", integral),
+            teacher.change("raise_right_hand", integral),
         )
         self.play(
             GrowFromCenter(brace),
@@ -3898,14 +3898,14 @@ class ThreeCamps(TeacherStudentsScene):
             words.animate.shift(0.75 * UP).set_opacity(0.5),
             FadeIn(words2, 0.2 * UP),
             LaggedStart(
-                self.teacher.animate.change("shruggie"),
-                self.students[0].animate.change("sassy", words2),
-                self.students[1].animate.change("thinking", words2),
-                self.students[2].animate.change("well", words2),
+                self.teacher.change("shruggie"),
+                self.students[0].change("sassy", words2),
+                self.students[1].change("thinking", words2),
+                self.students[2].change("well", words2),
             )
         )
         self.wait(2)
-        self.play(self.teacher.animate.change("speaking", words2))
+        self.play(self.teacher.change("speaking", words2))
         self.wait(3)
 
 
@@ -5230,10 +5230,10 @@ class ComplainAboutProgress(TeacherStudentsScene):
             TexText("Wait, is that all\\\\we've accomplished?"),
             target_mode="angry",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "guilty", "erm",
-            look_at_arg=self.students[2].eyes,
-            added_anims=[self.teacher.animate.change("guilty")],
+            look_at=self.students[2].eyes,
+            added_anims=[self.teacher.change("guilty")],
         )
         self.wait(4)
 
@@ -5837,12 +5837,12 @@ class ButSpheresAreSmooth(TeacherStudentsScene):
         self.student_says(
             TexText("But spheres don't\\\\have flat faces!"),
             target_mode="angry",
-            student_index=2,
-            added_anims=[self.teacher.animate.change("guilty")]
+            index=2,
+            added_anims=[self.teacher.change("guilty")]
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "erm", "hesitant", "angry",
-            look_at_arg=self.screen,
+            look_at=self.screen,
         )
         self.wait(6)
 
@@ -6003,10 +6003,10 @@ class MultipleMathematicalBackgrounds(TeacherStudentsScene):
 
         self.add(words)
         self.play(
-            self.teacher.animate.change("raise_right_hand"),
-            self.get_student_changes(
+            self.teacher.change("raise_right_hand"),
+            self.change_students(
                 "pondering", "thinking", "pondering",
-                look_at_arg=self.teacher.eyes,
+                look_at=self.teacher.eyes,
             ),
         )
         self.play(
@@ -6015,8 +6015,8 @@ class MultipleMathematicalBackgrounds(TeacherStudentsScene):
         )
         self.wait(3)
         self.play(
-            self.teacher.animate.change("dejected").look(UP),
-            self.get_student_changes("hesitant", "well", "thinking"),
+            self.teacher.change("dejected").look(UP),
+            self.change_students("hesitant", "well", "thinking"),
             LaggedStartMap(FadeOut, lines, scale=0.5),
             FadeOut(words, DOWN),
         )
@@ -6040,10 +6040,10 @@ class MultipleMathematicalBackgrounds(TeacherStudentsScene):
             new_lines.add(line)
 
         self.play(
-            self.teacher.animate.change("raise_right_hand"),
-            self.get_student_changes(
+            self.teacher.change("raise_right_hand"),
+            self.change_students(
                 "erm", "pondering", "thinking",
-                look_at_arg=self.students.get_center() + 4 * UP
+                look_at=self.students.get_center() + 4 * UP
             ),
             LaggedStartMap(FadeIn, methods, lag_ratio=0.5),
             LaggedStartMap(ShowCreation, new_lines, lag_ratio=0.5),
@@ -6068,11 +6068,11 @@ class WatchingAVideo(Scene):
 
         self.add(screen)
         self.add(randy)
-        self.play(randy.animate.change("pondering", screen))
+        self.play(randy.change("pondering", screen))
         blink_wait()
-        self.play(randy.animate.change("thinking", screen))
+        self.play(randy.change("thinking", screen))
         blink_wait()
-        self.play(randy.animate.change("hesitant", screen))
+        self.play(randy.change("hesitant", screen))
         blink_wait(2)
 
 
@@ -6540,8 +6540,8 @@ class GoalsOfMath(TeacherStudentsScene):
         dni.move_to(aq, LEFT)
 
         self.play(
-            self.teacher.animate.change("raise_right_hand", words),
-            self.get_student_changes(*3 * ["pondering"], look_at_arg=words),
+            self.teacher.change("raise_right_hand", words),
+            self.change_students(*3 * ["pondering"], look_at=words),
             Write(words)
         )
         self.wait(2)
@@ -6549,8 +6549,8 @@ class GoalsOfMath(TeacherStudentsScene):
         self.play(
             aq.animate.shift(0.5 * DOWN).set_opacity(0.2),
             Write(dni),
-            self.teacher.animate.change("well", words),
-            self.get_student_changes(*3 * ["thinking"], look_at_arg=words)
+            self.teacher.change("well", words),
+            self.change_students(*3 * ["thinking"], look_at=words)
         )
         self.wait(3)
 
@@ -6559,14 +6559,14 @@ class InfatuationWithGenerality(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             TexText("Why are mathematicians\\\\obsessed with abstractions?"),
-            student_index=0,
+            index=0,
             added_anims=[
-                self.students[1].animate.change("tease"),
-                self.students[2].animate.change("pondering"),
+                self.students[1].change("tease"),
+                self.students[2].change("pondering"),
             ]
         )
         self.play(
-            self.teacher.animate.change("well"),
+            self.teacher.change("well"),
         )
         self.wait(6)
 

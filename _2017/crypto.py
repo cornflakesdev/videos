@@ -200,7 +200,7 @@ class DisectQuestion(TeacherStudentsScene):
             self.teacher.change, "raise_right_hand",
             question.restore
         )
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.wait()
 
         self.bitcoin_word = question.get_part_by_tex("Bitcoin")
@@ -219,10 +219,10 @@ class DisectQuestion(TeacherStudentsScene):
 
         for word in topics:
             anims = [Write(word, run_time = 1)]
-            self.change_student_modes(
+            self.play_student_changes(
                 *["confused"]*3,
                 added_anims = anims,
-                look_at_arg = word
+                look_at = word
             )
 
     def isolate_you(self):
@@ -376,7 +376,7 @@ class NoCommentOnSpeculation(TeacherStudentsScene):
 
         self.student_says(
             "But...what are they?",
-            student_index = 0,
+            index = 0,
             target_mode = "confused"
         )
         self.wait(2)
@@ -920,7 +920,7 @@ class AnnounceDigitalSignatures(TeacherStudentsScene):
             words,
             target_mode = "hooray",
         )
-        self.change_student_modes(*["hooray"]*3)
+        self.play_student_changes(*["hooray"]*3)
         self.wait(2)
 
 class IntroduceSignatures(LedgerScene):
@@ -984,7 +984,7 @@ class AskHowDigitalSignaturesArePossible(TeacherStudentsScene):
             target_mode = "confused",
             run_time = 1
         )
-        self.change_student_modes("pondering", "confused", "erm")
+        self.play_student_changes("pondering", "confused", "erm")
         self.play(Write(signature))
         self.play(LaggedStartMap(FadeIn, bits, run_time = 1))
         self.wait()
@@ -1586,7 +1586,7 @@ class ThinkAboutSettlingUp(Scene):
             randy, 
             "You don't \\emph{actually} \\\\" + \
             "need to settle up $\\dots$",
-            bubble_class = ThoughtBubble,
+            bubble_type = ThoughtBubble,
             target_mode = "thinking"
         ))
         self.play(Blink(randy))
@@ -1794,9 +1794,9 @@ class RemovedConnectionBetweenLedgerAndCash(TeacherStudentsScene):
             ledger.shift, LEFT, 
             cash.shift, RIGHT
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = ledger,
+            look_at = ledger,
             added_anims = [self.teacher.change, "happy"]
         )
         self.wait(3)
@@ -2444,10 +2444,10 @@ class ThisIsWellIntoTheWeeds(TeacherStudentsScene):
             idea.restore,
             RemovePiCreatureBubble(
                 self.teacher, target_mode = "hooray",
-                look_at_arg = lightbulb
+                look_at = lightbulb
             ),
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
             added_anims = [LaggedStartMap(FadeIn, lightbulb)]
         )
@@ -4004,7 +4004,7 @@ class AskAboutTrustingWork(TeacherStudentsScene):
             "Is trusting work \\\\ really enough?",
             target_mode = mode,
         )
-        self.change_student_modes("confused", mode, "erm")
+        self.play_student_changes("confused", mode, "erm")
         self.wait(3)
         self.teacher_says(
             "Well, let's try\\\\ fooling someone",
@@ -4947,9 +4947,9 @@ class TopicsNotCovered(TeacherStudentsScene):
             self.teacher.change_mode, "raise_right_hand"
         )
         for topic in topics:
-            self.change_student_modes(
+            self.play_student_changes(
                 "confused", "thinking","pondering",
-                look_at_arg = topic,
+                look_at = topic,
                 added_anims = [LaggedStartMap(FadeIn, topic)]
             )
             self.wait()

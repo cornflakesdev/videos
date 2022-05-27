@@ -62,19 +62,19 @@ class ContrastPDEToODE(TeacherStudentsScene):
             student.change, "raise_right_hand",
         )
         self.play(
-            self.get_student_changes("pondering", "pondering", "hooray"),
+            self.change_students("pondering", "pondering", "hooray"),
             self.teacher.change, "happy"
         )
         self.wait(3)
         self.play(
             Swap(ode, pde),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(
+            self.change_students(
                 "erm", "sassy", "confused"
             )
         )
         self.look_at(words)
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "thinking", "tease",
         )
         self.wait(3)
@@ -92,10 +92,10 @@ class AskAboutWhereEquationComesFrom(TeacherStudentsScene, WriteHeatEquationTemp
         self.student_says(
             "Um...why?",
             target_mode="sassy",
-            student_index=2,
-            bubble_kwargs={"direction": RIGHT},
+            index=2,
+            bubble_config={"direction": RIGHT},
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "confused", "confused", "sassy",
         )
         self.wait()
@@ -108,16 +108,16 @@ class AskAboutWhereEquationComesFrom(TeacherStudentsScene, WriteHeatEquationTemp
 class AskWhyRewriteIt(TeacherStudentsScene):
     def construct(self):
         self.student_says(
-            "Why?", student_index=1,
-            bubble_kwargs={"height": 2, "width": 2},
+            "Why?", index=1,
+            bubble_config={"height": 2, "width": 2},
         )
         self.students[1].bubble = None
         self.teacher_says(
             "One step closer\\\\to derivatives"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "thinking", "thinking",
-            look_at_arg=4 * LEFT + 2 * UP
+            look_at=4 * LEFT + 2 * UP
         )
         self.wait(2)
 
@@ -132,9 +132,9 @@ class ReferenceKhanVideo(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "pondering", "thinking",
-            look_at_arg=self.screen
+            look_at=self.screen
         )
         self.wait()
         self.play(FadeInFromDown(khan_logo))

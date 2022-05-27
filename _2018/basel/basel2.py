@@ -614,7 +614,7 @@ class IntroScene(PiCreatureScene):
         thought = Group(q_circle, q_mark)
         q_mark.set_height(0.8 * q_circle.get_height())
         self.pi_creature_thinks(thought,target_mode = "confused",
-            bubble_kwargs = { "height" : 2, "width" : 3 })
+            bubble_config = { "height" : 2, "width" : 3 })
 
         self.wait()
 
@@ -1150,12 +1150,12 @@ class ThatJustSeemsUseless(TeacherStudentsScene):
         self.student_says(
             "How would \\\\ that help?",
             target_mode = "sassy",
-            student_index = 2,
-            bubble_kwargs = {"direction" : LEFT},
+            index = 2,
+            bubble_config = {"direction" : LEFT},
         )
         self.play(
             self.teacher.change, "guilty",
-            self.get_student_changes(*3*['sassy'])
+            self.change_students(*3*['sassy'])
         )
         self.wait()
 
@@ -1919,9 +1919,9 @@ class ScreensIntroWrapper(TeacherStudentsScene):
     def construct(self):
         point = VectorizedPoint(FRAME_X_RADIUS*LEFT/2 + FRAME_Y_RADIUS*UP/2)
         self.play(self.teacher.change, "raise_right_hand")
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "erm", "confused",
-            look_at_arg = point,
+            look_at = point,
         )
         self.play(self.teacher.look_at, point)
         self.wait(5)
@@ -2439,15 +2439,15 @@ class WeCanHaveMoreFunThanThat(TeacherStudentsScene):
             "We can have \\\\ more fun than that!",
             target_mode = "hooray"
         )
-        self.change_student_modes(*3*["erm"], look_at_arg = point)
+        self.play_student_changes(*3*["erm"], look_at = point)
         self.wait()
         self.play(
             RemovePiCreatureBubble(
                 self.teacher, 
                 target_mode = "raise_right_hand",
-                look_at_arg = point,
+                look_at = point,
             ),
-            self.get_student_changes(*3*["pondering"], look_at_arg = point)
+            self.change_students(*3*["pondering"], look_at = point)
         )
         self.wait(3)
 
@@ -2741,8 +2741,8 @@ class HomeworkWrapper(Scene):
 class HeresWhereThingsGetGood(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Now for the \\\\ good part!")
-        self.change_student_modes(*["hooray"]*3)
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["hooray"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait()
 
 class DiameterTheorem(TeacherStudentsScene):
@@ -2785,7 +2785,7 @@ class DiameterTheorem(TeacherStudentsScene):
         )
         self.play(
             ShowCreation(perp_mark),
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.add_foreground_mobjects(perp_mark)
         self.add(triangle_update_anim)
@@ -2867,7 +2867,7 @@ class InscribedeAngleThreorem(TeacherStudentsScene):
         self.play(
             ShowCreation(half_angle_mark),
             Write(theta_halves),
-            self.get_student_changes(*["pondering"]*3)
+            self.change_students(*["pondering"]*3)
         )
         self.add_foreground_mobjects(half_angle_mark, theta_halves)
         self.add(shape_update_anim)
@@ -3778,10 +3778,10 @@ class YayIPTApplies(TeacherStudentsScene):
     def construct(self):
         self.teacher_says(
             "Heyo!  The Inverse \\\\ Pythagorean Theorem \\\\ applies!",
-            bubble_kwargs = {"width" : 5},
+            bubble_config = {"width" : 5},
             target_mode = "surprised"
         )
-        self.change_student_modes(*3*["hooray"])
+        self.play_student_changes(*3*["hooray"])
         self.wait(2)
 
 class WalkThroughOneMoreStep(TeacherStudentsScene):
@@ -3907,7 +3907,7 @@ class ButWait(TeacherStudentsScene):
             target_mode = "angry",
             run_time = 1,
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "sassy", "angry", "sassy",
             added_anims = [self.teacher.change, "guilty"],
             run_time = 1
@@ -3921,7 +3921,7 @@ class ButWait(TeacherStudentsScene):
         )
         self.wait(3)
         self.teacher_says("Yes, but that's \\\\ very close.")
-        self.change_student_modes(*["plain"]*3)
+        self.play_student_changes(*["plain"]*3)
         self.wait(2)
 
 class FinalSumManipulationScene(PiCreatureScene):

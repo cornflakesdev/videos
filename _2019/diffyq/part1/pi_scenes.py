@@ -124,7 +124,7 @@ class SoWhatIsThetaThen(TeacherStudentsScene):
         self.teacher_says(
             "First, you must appreciate\\\\"
             "a deep truth...",
-            added_anims=[self.get_student_changes(
+            added_anims=[self.change_students(
                 *3 * ["confused"]
             )]
         )
@@ -220,10 +220,10 @@ class ProveTeacherWrong(TeacherStudentsScene):
         self.play(
             ShowCreation(arrow),
             # FadeInFromDown(q_mark),
-            self.get_student_changes("confused", "confused")
+            self.change_students("confused", "confused")
         )
         self.wait(4)
-        self.change_student_modes(
+        self.play_student_changes(
             *3 * ["pondering"],
             self.teacher.change, "maybe"
         )
@@ -292,19 +292,19 @@ class AskAboutActuallySolving(TeacherStudentsScene):
         self.student_says(
             "Yeah yeah, but how do\\\\"
             "you actually \\emph{solve} it?",
-            student_index=1,
+            index=1,
             target_mode="sassy",
             added_anims=[morty.change, "thinking"],
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "confused", "sassy", "confused",
-            look_at_arg=ode,
+            look_at=ode,
         )
         self.wait()
         self.teacher_says(
             "What do you mean\\\\ by ``solve''?",
             target_mode="speaking",
-            added_anims=[self.get_student_changes(
+            added_anims=[self.change_students(
                 *3 * ["erm"]
             )]
         )
@@ -411,7 +411,7 @@ class HungerForExactness(TeacherStudentsScene):
             RemovePiCreatureBubble(
                 you,
                 target_mode="raise_left_hand",
-                look_at_arg=proposed_solution,
+                look_at=proposed_solution,
             ),
             teacher.change, "pondering",
             students[0].change, "pondering",
@@ -431,7 +431,7 @@ class HungerForExactness(TeacherStudentsScene):
             ode.move_to, self.hold_up_spot, DOWN,
             ode.shift, LEFT,
             teacher.change, "raise_right_hand",
-            self.get_student_changes(*3 * ["pondering"])
+            self.change_students(*3 * ["pondering"])
         )
         self.wait()
         ode.save_state()
@@ -447,21 +447,21 @@ class HungerForExactness(TeacherStudentsScene):
         for part, mode in zip(solution, modes):
             self.play(
                 FadeIn(part, UP),
-                self.get_student_changes(
+                self.change_students(
                     *3 * [mode],
-                    look_at_arg=part,
+                    look_at=part,
                 )
             )
             self.wait()
         self.wait(3)
-        self.change_student_modes("tired", "sad", "concerned_musician")
+        self.play_student_changes("tired", "sad", "concerned_musician")
         self.wait(4)
         self.look_at(solution)
         self.wait(5)
         self.play(
             FadeOut(solution, 2 * LEFT),
             Restore(ode),
-            self.get_student_changes(
+            self.change_students(
                 "sick", "angry", "tired",
             )
         )
@@ -483,7 +483,7 @@ class HungerForExactness(TeacherStudentsScene):
             self.teacher.change, "pondering"
         )
         self.add(mystery_boundary, mystery)
-        self.change_all_student_modes("sad")
+        self.play_all_student_changes("sad")
         self.look_at(mystery)
         self.wait(5)
 
@@ -491,7 +491,7 @@ class HungerForExactness(TeacherStudentsScene):
         self.student_says(
             "Let $\\text{P}(\\mu, g, L; t)$ be a\\\\"
             "function satisfying this ODE.",
-            student_index=0,
+            index=0,
             target_mode="speaking",
             added_anims=[
                 FadeOut(mystery),
@@ -499,9 +499,9 @@ class HungerForExactness(TeacherStudentsScene):
                 ode.to_corner, UR
             ]
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "hooray", "sassy", "sassy",
-            look_at_arg=students[0].eyes.get_corner(UR),
+            look_at=students[0].eyes.get_corner(UR),
         )
         self.wait(2)
 
@@ -509,7 +509,7 @@ class HungerForExactness(TeacherStudentsScene):
 class ItGetsWorse(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("It gets\\\\worse")
-        self.change_student_modes(
+        self.play_student_changes(
             "hesitant", "pleading", "erm"
         )
         self.wait(5)

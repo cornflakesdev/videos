@@ -1109,12 +1109,12 @@ class Reinvention(TeacherStudentsScene):
     def construct(self):
         self.play(
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(*3 * ["pondering"]),
+            self.change_students(*3 * ["pondering"]),
         )
         self.wait(3)
         self.student_says(
             "I see where\\\\this is going",
-            student_index=0,
+            index=0,
             target_mode="tease",
         )
         self.look_at(self.students[0].bubble)
@@ -2425,7 +2425,7 @@ class ComplainAboutParityCheckWeakness(TeacherStudentsScene):
                 self.students[1],
                 "Wait, it fails\\\\for two flips?",
                 target_mode="sassy",
-                bubble_kwargs={
+                bubble_config={
                     "height": 3,
                     "width": 3,
                 }
@@ -2437,16 +2437,16 @@ class ComplainAboutParityCheckWeakness(TeacherStudentsScene):
             PiCreatureSays(
                 self.students[2], "Weak!",
                 target_mode="angry",
-                bubble_kwargs={"direction": LEFT}
+                bubble_config={"direction": LEFT}
             ),
             self.students[0].change, "hesitant"
         )
         self.wait()
         self.play(self.teacher.change, "tease")
         self.wait()
-        self.change_student_modes(
+        self.play_student_changes(
             "thinking", "pondering", "pondering",
-            look_at_arg=self.screen,
+            look_at=self.screen,
             added_anims=[
                 FadeOut(self.students[1].bubble),
                 FadeOut(self.students[1].bubble.content),
@@ -3448,16 +3448,16 @@ class WhatIfTheresAndArrowInECCBits(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "What if an\\\\error-correction bit\\\\needs to be corrected?",
-            bubble_kwargs={'width': 5, 'height': 4, "direction": LEFT},
+            bubble_config={'width': 5, 'height': 4, "direction": LEFT},
             added_anims=[self.teacher.change, "happy"]
         )
-        self.change_student_modes("confused", "confused")
+        self.play_student_changes("confused", "confused")
         self.look_at(self.screen)
         self.wait(2)
         self.teacher_says("Try it!", target_mode="hooray")
-        self.change_student_modes(*3 * ["pondering"], look_at_arg=self.screen)
+        self.play_student_changes(*3 * ["pondering"], look_at=self.screen)
         self.wait(2)
-        self.change_student_modes(*3 * ["thinking"], look_at_arg=self.screen)
+        self.play_student_changes(*3 * ["thinking"], look_at=self.screen)
         self.wait(8)
 
 
@@ -3504,8 +3504,8 @@ class HalfAsPowerful(TeacherStudentsScene):
             target_mode="sassy",
             added_anims=[self.teacher.change, "happy"]
         )
-        self.change_student_modes(
-            "pondering", "pondering", look_at_arg=self.screen,
+        self.play_student_changes(
+            "pondering", "pondering", look_at=self.screen,
             added_anims=[self.teacher.change, "tease"]
         )
         self.look_at(self.screen)
@@ -3519,7 +3519,7 @@ class WhatAboutTwoErrors(TeacherStudentsScene):
         )
         self.play(self.teacher.change, "guilty")
         self.look_at(self.screen)
-        self.change_student_modes("erm", "confused")
+        self.play_student_changes("erm", "confused")
         self.look_at(self.screen)
         self.wait(4)
 
@@ -3699,7 +3699,7 @@ class BlockSize256(Scene):
 class WellAlmost(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Well...\\\\almost", target_mode="hesitant")
-        self.change_student_modes("angry", "sassy", "confused")
+        self.play_student_changes("angry", "sassy", "confused")
         self.wait(3)
 
 
@@ -4023,8 +4023,8 @@ class ChecksSpellOutPositionInBinary(Scene):
         self.play(PiCreatureBubbleIntroduction(
             randy, "Wait...",
             target_mode="confused",
-            bubble_class=ThoughtBubble,
-            look_at_arg=boxes.get_top(),
+            bubble_type=ThoughtBubble,
+            look_at=boxes.get_top(),
         ))
         self.play(Blink(randy))
         self.wait()
@@ -4229,16 +4229,16 @@ class LetsWalkThroughAnExample(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "Can we walk through\\\\a full example?",
-            student_index=1,
+            index=1,
             added_anims=[self.teacher.change, "happy"]
         )
-        self.change_student_modes("hooray", None, "hooray")
+        self.play_student_changes("hooray", None, "hooray")
         self.wait(5)
         self.teacher_says(
             "But of\\\\course!",
             target_mode="tease"
         )
-        self.change_student_modes("happy", "coin_flip_1", "happy")
+        self.play_student_changes("happy", "coin_flip_1", "happy")
         self.wait(4)
 
 
@@ -4882,7 +4882,7 @@ class AskHowItsImplemented(TeacherStudentsScene):
         self.student_says("How do you\\\\implement this?")
         self.play(
             self.teacher.change, "happy",
-            self.get_student_changes("pondering", "confused"),
+            self.change_students("pondering", "confused"),
         )
         self.look_at(self.screen)
         self.wait(6)
@@ -5421,9 +5421,9 @@ class ButWhy(TeacherStudentsScene):
             "Hang on...\\\\why?", target_mode="confused",
             added_anims=[self.teacher.change, "tease"]
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "maybe", "erm", "confused",
-            look_at_arg=self.screen,
+            look_at=self.screen,
         )
         self.wait(6)
 
@@ -5810,13 +5810,13 @@ class WhatAboutTwoBitDetection(TeacherStudentsScene):
             "What about\\\\detecting\\\\two bit errors?"
         )
         self.play(
-            self.get_student_changes("angry", "maybe", "raise_left_hand"),
+            self.change_students("angry", "maybe", "raise_left_hand"),
             self.teacher.change, "guilty",
         )
         self.look_at(self.screen)
         self.wait(4)
         self.play(self.teacher.change, "happy")
-        self.change_student_modes("confused", "erm", "pondering")
+        self.play_student_changes("confused", "erm", "pondering")
         self.wait(3)
 
 
@@ -5827,15 +5827,15 @@ class ConflictingViewsOnXor(TeacherStudentsScene):
         self.student_says(
             "Um...can you\\\\say that again?",
             target_mode="confused",
-            student_index=2,
+            index=2,
             added_anims=[self.teacher.change, "guilty"]
         )
-        self.change_student_modes("pondering", "pondering", look_at_arg=self.screen)
+        self.play_student_changes("pondering", "pondering", look_at=self.screen)
         self.wait(2)
         self.student_says(
             "Why didn't you\\\\just use xors\\\\from the start?",
             target_mode="sassy",
-            student_index=1,
+            index=1,
         )
         self.look_at(self.students[1].bubble)
         self.wait(5)
@@ -6142,7 +6142,7 @@ class HammingThinking(Scene):
         self.wait()
         self.play(PiCreatureBubbleIntroduction(
             randy, "What's the most efficient\\\\I could conceivably be?",
-            bubble_class=ThoughtBubble,
+            bubble_type=ThoughtBubble,
         ))
         self.wait()
 
@@ -6285,9 +6285,9 @@ class ThinkingInTermsOfBits(Scene):
 class SimpleHoldUpBackground(TeacherStudentsScene):
     def construct(self):
         self.play(self.teacher.change, "raise_right_hand", 3 * UP)
-        self.change_student_modes("pondering", "thinking", "tease", look_at_arg=3 * UP)
+        self.play_student_changes("pondering", "thinking", "tease", look_at=3 * UP)
         self.wait(4)
-        self.change_student_modes("tease", "hesitant", "happy", look_at_arg=3 * UP)
+        self.play_student_changes("tease", "hesitant", "happy", look_at=3 * UP)
         self.wait(5)
 
 

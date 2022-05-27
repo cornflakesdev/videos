@@ -311,7 +311,7 @@ class WhatAboutOtherBasis(TeacherStudentsScene):
             different basis vectors
         """)
         self.random_blink()
-        self.change_student_modes("pondering")
+        self.play_student_changes("pondering")
         self.random_blink(2)
 
 class JenniferScene(LinearCombinationScene):
@@ -679,7 +679,7 @@ class GridIsAConstruct(TeacherStudentsScene):
             The grid is
             just a construct
         """)
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.random_blink(2)
 
 class SpaceHasNoGrid(LinearTransformationScene):
@@ -1409,7 +1409,7 @@ class VectorsAreNotTheOnlyOnes(TeacherStudentsScene):
             Vectors aren't the
             only thing with coordinates
         """)
-        self.change_student_modes("pondering", "confused", "erm")
+        self.play_student_changes("pondering", "confused", "erm")
         self.random_blink(3)
 
 class Prerequisites(Scene):
@@ -1564,7 +1564,7 @@ class AksAboutTranslatingColumns(TeacherStudentsScene):
         words = TexText("Translate columns of")
         matrix.next_to(words, DOWN)
         words.add(matrix)
-        self.student_says(words, student_index = 0)
+        self.student_says(words, index = 0)
         self.random_blink(2)
 
         student = self.get_students()[0]
@@ -1591,7 +1591,7 @@ class AksAboutTranslatingColumns(TeacherStudentsScene):
         words.set_color_by_tex("our basis", BLUE)
         words.set_color_by_tex("hers", MAROON_B)
         self.teacher_says(words)
-        self.change_student_modes("erm", "pondering", "pondering")
+        self.play_student_changes("erm", "pondering", "pondering")
         self.random_blink()
 
 class HowToTranslateAMatrix(Scene):

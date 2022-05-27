@@ -25,41 +25,35 @@ class Blink(ApplyMethod):
 
 
 class PiCreatureBubbleIntroduction(AnimationGroup):
-    CONFIG = {
-        "target_mode": "speaking",
-        "bubble_class": SpeechBubble,
-        "change_mode_kwargs": {},
-        "bubble_creation_class": DrawBorderThenFill,
-        "bubble_creation_kwargs": {},
-        "bubble_kwargs": {},
-        "content_introduction_class": Write,
-        "content_introduction_kwargs": {},
-        "look_at_arg": None,
-    }
-
-    def __init__(self, pi_creature, *content, **kwargs):
-        digest_config(self, kwargs)
+    def __init__(
+        self, pi_creature, content,
+        target_mode="speaking",
+        look_at=None,
+        bubble_type=SpeechBubble,
+        max_bubble_height=None,
+        max_bubble_width=None,
+        bubble_direction=None,
+        bubble_config={},
+        bubble_creation_class=DrawBorderThenFill,
+        bubble_creation_kwargs={},
+        content_introduction_class=Write,
+        content_introduction_kwargs={},
+        **kwargs,
+    ):
+        bubble_config["max_height"] = max_bubble_height
+        bubble_config["max_width"] = max_bubble_width
+        if bubble_direction is not None:
+            bubble_config["direction"] = bubble_direction
         bubble = pi_creature.get_bubble(
-            *content,
-            bubble_class=self.bubble_class,
-            **self.bubble_kwargs
+            content, bubble_type=bubble_type,
+            **bubble_config
         )
         Group(bubble, bubble.content).shift_onto_screen()
 
-        pi_creature.generate_target()
-        pi_creature.target.change_mode(self.target_mode)
-        if self.look_at_arg is not None:
-            pi_creature.target.look_at(self.look_at_arg)
-
-        change_mode = MoveToTarget(pi_creature, **self.change_mode_kwargs)
-        bubble_creation = self.bubble_creation_class(
-            bubble, **self.bubble_creation_kwargs
-        )
-        content_introduction = self.content_introduction_class(
-            bubble.content, **self.content_introduction_kwargs
-        )
-        AnimationGroup.__init__(
-            self, change_mode, bubble_creation, content_introduction,
+        super().__init__(
+            pi_creature.change(target_mode, look_at),
+            bubble_creation_class(bubble, **bubble_creation_kwargs),
+            content_introduction_class(bubble.content, **content_introduction_kwargs),
             **kwargs
         )
 
@@ -67,14 +61,14 @@ class PiCreatureBubbleIntroduction(AnimationGroup):
 class PiCreatureSays(PiCreatureBubbleIntroduction):
     CONFIG = {
         "target_mode": "speaking",
-        "bubble_class": SpeechBubble,
+        "bubble_type": SpeechBubble,
     }
 
 
 class RemovePiCreatureBubble(AnimationGroup):
     CONFIG = {
         "target_mode": "plain",
-        "look_at_arg": None,
+        "look_at": None,
         "remover": True,
     }
 
@@ -84,8 +78,8 @@ class RemovePiCreatureBubble(AnimationGroup):
 
         pi_creature.generate_target()
         pi_creature.target.change_mode(self.target_mode)
-        if self.look_at_arg is not None:
-            pi_creature.target.look_at(self.look_at_arg)
+        if self.look_at is not None:
+            pi_creature.target.look_at(self.look_at)
 
         AnimationGroup.__init__(
             self,

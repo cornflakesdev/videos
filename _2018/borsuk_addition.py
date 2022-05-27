@@ -14,7 +14,7 @@ class Introduction(TeacherStudentsScene):
             Animation(VectorizedPoint(self.hold_up_spot)),
             self.teacher.change, "raise_right_hand",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "angry", "sassy", "pleading"
         )
         self.wait()
@@ -34,9 +34,9 @@ class Introduction(TeacherStudentsScene):
             )
             movements.append(student.center_tracker)
         self.add(*movements)
-        self.change_student_modes(
+        self.play_student_changes(
             "pondering", "sad", "concerned_musician",
-            look_at_arg=10 * LEFT + 2 * DOWN
+            look_at=10 * LEFT + 2 * DOWN
         )
         self.teacher_says(
             "Wait, wait, wait!",
@@ -44,7 +44,7 @@ class Introduction(TeacherStudentsScene):
         )
         self.remove(*movements)
         self.play(
-            self.get_student_changes(*3 * ["hesitant"]),
+            self.change_students(*3 * ["hesitant"]),
             *[
                 Restore(student.center_tracker)
                 for student in self.students
@@ -56,9 +56,9 @@ class StudentsWatching(TeacherStudentsScene):
     def construct(self):
         self.play(
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["thinking"],
-                look_at_arg=self.screen
+                look_at=self.screen
             ),
             VFadeIn(self.pi_creatures, run_time=2)
         )

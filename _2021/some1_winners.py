@@ -194,11 +194,11 @@ class Introduction(TeacherStudentsScene):
             self.play(Write(point))
             if point is points[1]:
                 self.play(
-                    morty.animate.change("hooray").look(ORIGIN),
+                    morty.change("hooray").look(ORIGIN),
                     FadeOut(BackgroundRectangle(morty, buff=0.25, fill_opacity=1))
                 )
                 self.play(Blink(morty))
-                self.play(morty.animate.change("tease", points[2]))
+                self.play(morty.change("tease", points[2]))
             else:
                 self.wait()
 
@@ -215,14 +215,14 @@ class Introduction(TeacherStudentsScene):
                 url, dots, points,
             )),
             FadeIn(self.background),
-            morty.animate.change("hesitant", winner_word),
+            morty.change("hesitant", winner_word),
             FadeTransform(pre_winner_word, winner_word[2:9]),
             LaggedStartMap(FadeIn, self.students),
         )
         self.play(
             Write(winner_word[:2]),
             Write(winner_word[-2:]),
-            self.get_student_changes("sassy", "raise_right_hand", "raise_left_hand"),
+            self.change_students("sassy", "raise_right_hand", "raise_left_hand"),
         )
         self.wait(4)
 
@@ -237,9 +237,9 @@ class Introduction(TeacherStudentsScene):
         self.play(
             FadeIn(salt, lag_ratio=0.1),
             ShowCreation(arrow),
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "pondering", "erm",
-                look_at_arg=salt,
+                look_at=salt,
             )
         )
         self.play(
@@ -276,14 +276,14 @@ class Introduction(TeacherStudentsScene):
         self.play(
             MoveToTarget(arrow),
             FadeIn(bubble),
-            self.students[0].animate.change("thinking", bubble),
-            self.students[1].animate.change("pondering", bubble),
-            self.students[2].animate.change("pondering", bubble),
-            self.teacher.animate.change("happy", bubble),
+            self.students[0].change("thinking", bubble),
+            self.students[1].change("pondering", bubble),
+            self.students[2].change("pondering", bubble),
+            self.teacher.change("happy", bubble),
             winner_word.animate.scale(0.3).set_opacity(0.5).to_corner(UR),
         )
         self.play(
-            self.students[0].animate.change("raise_left_hand", video),
+            self.students[0].change("raise_left_hand", video),
             FadeIn(video, 0.5 * UP),
         )
         self.wait()
@@ -298,7 +298,7 @@ class Introduction(TeacherStudentsScene):
                 for bc in bubble_copies
             ), lag_ratio=0.5),
             LaggedStart(*(
-                student.animate.change("thinking", UR)
+                student.change("thinking", UR)
                 for student in self.students[1:]
             ), lag_ratio=0.5),
             run_time=2,
@@ -661,8 +661,8 @@ class AlmostTooGood(TeacherStudentsScene):
         self.pi_creatures.flip().flip()
         self.teacher_says(
             TexText("Almost \\emph{too} good"),
-            look_at_arg=self.students[2].eyes,
-            added_anims=[self.get_student_changes("happy", "tease", "hesitant")],
+            look_at=self.students[2].eyes,
+            added_anims=[self.change_students("happy", "tease", "hesitant")],
         )
         self.wait(4)
 
@@ -707,16 +707,16 @@ class SureSure(TeacherStudentsScene):
         self.students.flip().flip()
         self.teacher_says(
             "The point is \n not the winners",
-            look_at_arg=self.students[2].eyes,
-            bubble_kwargs={"height": 3, "width": 4}
+            look_at=self.students[2].eyes,
+            bubble_config={"height": 3, "width": 4}
         )
         self.play(PiCreatureSays(
             self.students[0],
             "Yeah, yeah, sure\n it isn't...",
-            bubble_kwargs={"height": 2, "width": 3}
+            bubble_config={"height": 2, "width": 3}
         ))
-        self.change_student_modes("sassy", "angry", "hesitant")
-        self.play(self.teacher.animate.change("guilty"))
+        self.play_student_changes("sassy", "angry", "hesitant")
+        self.play(self.teacher.change("guilty"))
         self.wait(4)
 
 

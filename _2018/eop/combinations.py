@@ -107,7 +107,7 @@ class ExperienceProblemSolver(PiCreatureScene):
         self.pi_creature_says(
             jenny, jenny_words, 
             target_mode = "hooray",
-            bubble_kwargs = {"height" : 2, "width" : 3}
+            bubble_config = {"height" : 2, "width" : 3}
         )
         self.wait()
         self.play(
@@ -157,7 +157,7 @@ class ExperienceProblemSolver(PiCreatureScene):
 
         self.pi_creature_thinks(
             jenny, "",
-            bubble_kwargs = {"width" : 5, "height" : 4.2},
+            bubble_config = {"width" : 5, "height" : 4.2},
             added_anims = [
                 FadeOut(self.to_fade),
                 FadeOut(self.equation),
@@ -926,14 +926,14 @@ class SixChooseThreeInOtherContext(Scene):
 #         for i in 2, 11, 14:
 #             formula[i].set_color(YELLOW)
 
-#         self.student_thinks(formula, student_index = 1)
+#         self.student_thinks(formula, index = 1)
 #         self.play(self.teacher.change, "sassy")
 #         self.wait(2)
 #         self.play(
 #             FadeOut(self.students[1].bubble),
 #             FadeOut(formula),
 #             self.teacher.change, "raise_right_hand",
-#             self.get_student_changes(*["pondering"]*3)
+#             self.change_students(*["pondering"]*3)
 #         )
 
 #     def show_pattern(self):
@@ -1284,7 +1284,7 @@ class AskAboutAllPossibilities(ProbabilityOfKWomenInGroupOfFive):
 class RememberThisSensation(TeacherStudentsScene):
     def construct(self):
         self.teacher_says("Remember this \\\\ sensation")
-        self.change_student_modes("confused", "pondering", "erm")
+        self.play_student_changes("confused", "pondering", "erm")
         self.wait(2)
 
 class TeacherHoldingSomething(TeacherStudentsScene):
@@ -1292,9 +1292,9 @@ class TeacherHoldingSomething(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand",
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = 2*UP+2*RIGHT
+            look_at = 2*UP+2*RIGHT
         )
         self.wait(6)
 
@@ -1841,7 +1841,7 @@ class IntroducePascalsTriangle(Scene):
         self.play(FadeIn(morty))
         self.play(PiCreatureSays(
             morty, "Keep in mind \\\\ what these mean.",
-            bubble_kwargs = {
+            bubble_config = {
                 "width" : 3.5,
                 "height" : 2.5,
             }
@@ -2131,7 +2131,7 @@ class StacksApproachBellCurve(Scene):
 #             "Is there a better \\\\ way to compute these?",
 #             target_mode = "raise_left_hand",
 #         )
-#         self.change_student_modes("confused", "raise_left_hand", "erm")
+#         self.play_student_changes("confused", "raise_left_hand", "erm")
 #         self.wait()
 #         self.play(self.teacher.change_mode, "happy")
 #         self.wait()
@@ -2636,7 +2636,7 @@ class StudentsGetConfused(PiCreatureScene):
             PiCreatureSays(
                 pi1, "Wait \\dots order matters now?",
                 target_mode = "confused",
-                look_at_arg = line
+                look_at = line
             )
         )
         self.play(
@@ -3187,7 +3187,7 @@ class WeirdKindOfCancelation(TeacherStudentsScene):
             name.target = name_target
 
         self.teacher_says("It's like unit cancellation.")
-        self.change_student_modes(*["confused"]*3)
+        self.play_student_changes(*["confused"]*3)
         self.play(
             RemovePiCreatureBubble(
                 self.teacher, target_mode = "raise_right_hand"
@@ -3196,9 +3196,9 @@ class WeirdKindOfCancelation(TeacherStudentsScene):
             FadeIn(braces),
             LaggedStartMap(FadeIn, names)
         )
-        self.change_student_modes(
+        self.play_student_changes(
             *["pondering"]*3,
-            look_at_arg = fraction
+            look_at = fraction
         )
 
         #Go through numerators
@@ -3231,7 +3231,7 @@ class WeirdKindOfCancelation(TeacherStudentsScene):
             self.teacher.change, "maybe",
         )
         self.play(ShowCreation(bottom_cross))
-        self.change_student_modes(*["happy"]*3)
+        self.play_student_changes(*["happy"]*3)
         self.wait(3)
 
     ###
@@ -3507,7 +3507,7 @@ class AskWhyTheyAreCalledBinomial(TeacherStudentsScene):
             Write(binomial_word),
             LaggedStartMap(GrowArrow, arrows)
         )
-        self.change_student_modes(*["pondering"]*3)
+        self.play_student_changes(*["pondering"]*3)
         self.play(Write(two_variables))
         self.wait(2)
 

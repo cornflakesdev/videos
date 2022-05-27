@@ -18,15 +18,15 @@ class OnAnsweringTwice(TeacherStudentsScene):
 
         self.student_says(
             "But we already \\\\ solved it",
-            bubble_kwargs={"direction": LEFT},
+            bubble_config={"direction": LEFT},
             target_mode="raise_left_hand",
             added_anims=[self.teacher.change, "thinking"]
         )
-        self.change_student_modes("sassy", "angry")
+        self.play_student_changes("sassy", "angry")
         self.wait()
         self.play(
             RemovePiCreatureBubble(self.students[2]),
-            self.get_student_changes("erm", "erm"),
+            self.change_students("erm", "erm"),
             ApplyMethod(
                 question.move_to, self.hold_up_spot, DOWN,
                 path_arc=-90 * DEGREES,
@@ -38,9 +38,9 @@ class OnAnsweringTwice(TeacherStudentsScene):
             self.play(
                 shown_questions.shift, 0.85 * UP,
                 FadeInFromDown(oq),
-                self.get_student_changes(
+                self.change_students(
                     *["pondering"] * 3,
-                    look_at_arg=oq
+                    look_at=oq
                 )
             )
             shown_questions.add(oq)
@@ -50,13 +50,13 @@ class OnAnsweringTwice(TeacherStudentsScene):
 class AskAboutEqualMassMomentumTransfer(TeacherStudentsScene):
     def construct(self):
         self.student_says("Why?")
-        self.change_student_modes("confused", "confused")
+        self.play_student_changes("confused", "confused")
         self.wait()
         self.play(
             RemovePiCreatureBubble(self.students[2]),
             self.teacher.change, "raise_right_hand"
         )
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.look_at(self.hold_up_spot + 2 * UP)
         self.wait(5)
 
@@ -67,16 +67,16 @@ class ComplainAboutRelevanceOfAnalogy(TeacherStudentsScene):
             "Why would \\\\ you care",
             target_mode="maybe"
         )
-        self.change_student_modes(
+        self.play_student_changes(
             "angry", "sassy", "maybe",
             added_anims=[self.teacher.change, "guilty"]
         )
         self.wait(2)
         self.play(
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(
+            self.change_students(
                 "pondering", "erm", "pondering",
-                look_at_arg=self.hold_up_spot,
+                look_at=self.hold_up_spot,
             ),
             RemovePiCreatureBubble(self.students[2])
         )
@@ -91,16 +91,16 @@ class ReplaceOneTrickySceneWithAnother(TeacherStudentsScene):
     def construct(self):
         self.student_says(
             "This replaces one tricky\\\\problem with another",
-            student_index=1,
+            index=1,
             target_mode="sassy",
             added_anims=[self.teacher.change, "happy"],
         )
-        self.change_student_modes("erm", "sassy", "angry")
+        self.play_student_changes("erm", "sassy", "angry")
         self.wait(4)
         self.play(
             RemovePiCreatureBubble(self.students[1]),
             self.teacher.change, "raise_right_hand",
-            self.get_student_changes(*3 * ["pondering"])
+            self.change_students(*3 * ["pondering"])
         )
         self.look_at(self.hold_up_spot + 2 * UP)
         self.wait(5)
@@ -111,7 +111,7 @@ class NowForTheGoodPart(TeacherStudentsScene):
         self.teacher_says(
             r"Now for the \\ good part!",
             target_mode="hooray",
-            added_anims=[self.get_student_changes(
+            added_anims=[self.change_students(
                 "hooray", "surprised", "happy"
             )],
         )

@@ -143,7 +143,7 @@ class TakeOver(PiCreatureScene):
         self.add(morty, henry)
         self.pi_creature_says(
             "Muahaha!  All \\\\ mine now.",
-            bubble_kwargs={"fill_opacity": 0.5},
+            bubble_config={"fill_opacity": 0.5},
             bubble_creation_class=FadeIn,
             target_mode="conniving",
             added_anims=[henry.rotate, 5 * DEGREES]
@@ -692,7 +692,7 @@ class TeacherHoldingUp(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand"
         )
-        self.change_all_student_modes("pondering")
+        self.play_all_student_changes("pondering")
         self.look_at(ORIGIN)
         self.wait(5)
 
@@ -980,7 +980,7 @@ class FeynmanSaysItBest(TeacherStudentsScene):
         self.teacher_says(
             "Feynman says \\\\ it best",
             added_anims=[
-                self.get_student_changes(
+                self.change_students(
                     "hooray", "happy", "erm"
                 )
             ]
@@ -1109,13 +1109,13 @@ class AskAboutInfiniteIntelligence(TeacherStudentsScene):
             target_mode="confused"
         )
         self.play(
-            self.get_student_changes("horrified", "confused", "sad"),
+            self.change_students("horrified", "confused", "sad"),
             self.teacher.change, "happy",
         )
         self.wait()
         self.teacher_says(
             "Stay focused, \\\\ go full screen, \\\\ and you'll be fine.",
-            added_anims=[self.get_student_changes(*["happy"] * 3)]
+            added_anims=[self.change_students(*["happy"] * 3)]
         )
         self.wait()
         self.look_at(self.screen)
@@ -2729,7 +2729,7 @@ class HistoryOfAngularMomentum(TeacherStudentsScene):
         self.play(
             self.teacher.change, "raise_right_hand",
             FadeInFromDown(group),
-            self.get_student_changes(*3 * ["pondering"])
+            self.change_students(*3 * ["pondering"])
         )
         self.wait()
         self.play(
@@ -2991,12 +2991,12 @@ class AskWhy(TeacherStudentsScene):
         self.student_says(
             "Um...why?",
             target_mode="confused",
-            student_index=2,
-            bubble_kwargs={"direction": LEFT},
+            index=2,
+            bubble_config={"direction": LEFT},
         )
         self.play(
             self.teacher.change, "happy",
-            self.get_student_changes(
+            self.change_students(
                 "raise_left_hand", "sassy", "confused"
             )
         )
@@ -3525,14 +3525,14 @@ class IKnowThisIsTricky(TeacherStudentsScene):
     def construct(self):
         self.teacher_says(
             "All you need is \\\\ infinite intelligence",
-            bubble_kwargs={
+            bubble_config={
                 "width": 4,
                 "height": 3,
             },
             added_anims=[
-                self.get_student_changes(
+                self.change_students(
                     *3 * ["horrified"],
-                    look_at_arg=self.screen
+                    look_at=self.screen
                 )
             ]
         )
@@ -3612,7 +3612,7 @@ class OneMoreTrick(TeacherStudentsScene):
         for student in self.students:
             student.change("tired")
         self.teacher_says("Just one more \\\\ tricky bit!")
-        self.change_all_student_modes("hooray")
+        self.play_all_student_changes("hooray")
         self.wait(3)
 
 
@@ -4189,21 +4189,21 @@ class PatYourselfOnTheBack(TeacherStudentsScene):
             "Pat yourself \\\\ on the back!",
             target_mode="hooray"
         )
-        self.change_all_student_modes("happy")
+        self.play_all_student_changes("happy")
         self.wait(3)
         self.play(
             RemovePiCreatureBubble(
                 self.teacher,
                 target_mode="raise_right_hand"
             ),
-            self.get_student_changes(
+            self.change_students(
                 *3 * ["pondering"],
-                look_at_arg=self.screen
+                look_at=self.screen
             )
         )
         self.look_at(UP)
         self.wait(8)
-        self.change_student_modes(*3 * ["thinking"])
+        self.play_student_changes(*3 * ["thinking"])
         self.look_at(UP)
         self.wait(12)
         self.teacher_says("I just love this!")
